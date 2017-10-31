@@ -16,6 +16,8 @@
 		0D1961271F9F83AB00261FD5 /* KC_PhotoArts_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1961261F9F83AB00261FD5 /* KC_PhotoArts_Tests.swift */; };
 		0D1961321F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1961311F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift */; };
 		0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35B1FA5A2B100167B3A /* ArtData.swift */; };
+		0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35D1FA6764000167B3A /* CVCell.swift */; };
+		0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		0D1961311F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KC_PhotoArts_UITests.swift; sourceTree = "<group>"; };
 		0D1961331F9F83AB00261FD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D8CA35B1FA5A2B100167B3A /* ArtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtData.swift; sourceTree = "<group>"; };
+		0D8CA35D1FA6764000167B3A /* CVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCell.swift; sourceTree = "<group>"; };
+		0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 			children = (
 				0D19610E1F9F83AA00261FD5 /* AppDelegate.swift */,
 				0D1961101F9F83AA00261FD5 /* ViewController.swift */,
+				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
+				0D8CA35D1FA6764000167B3A /* CVCell.swift */,
 				0D1961121F9F83AA00261FD5 /* Main.storyboard */,
 				0D8CA35B1FA5A2B100167B3A /* ArtData.swift */,
 				0D1961181F9F83AA00261FD5 /* Assets.xcassets */,
@@ -270,8 +276,10 @@
 			files = (
 				0D1961111F9F83AA00261FD5 /* ViewController.swift in Sources */,
 				0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */,
+				0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */,
 				0D19610F1F9F83AA00261FD5 /* AppDelegate.swift in Sources */,
 				0D1961171F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld in Sources */,
+				0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,4 +10,16 @@ import UIKit
 
 class ArtData: NSObject {
 
+    var itemName:String!
+    var itemNumber:String!
+    var largeImage:String!
+    var smallImage:String
+    
+    init(itemName:String!, itemNumber:String!, largeImage:String!, smallImage:String!)
+    {
+        self.itemName = itemName
+        self.itemNumber = itemNumber
+        self.largeImage = largeImage
+        self.smallImage = smallImage
+    }
 }
