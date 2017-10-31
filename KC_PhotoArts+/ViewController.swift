@@ -100,7 +100,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                         {
                             if let itemName = item["item_name"] as? String, let itemNumber = item["item_number"] as? String, let largeImage = item["large_image"] as? String, let smallImage = item["small_image"] as? String
                             {
-                                print(itemName)
+                                //print(itemName)
                                self.photoArts.append(ArtData(itemName: itemName, itemNumber: itemNumber, largeImage: largeImage, smallImage: smallImage))
                             }
                         }
@@ -130,17 +130,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // MARK: - Navigation
     
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "itemNav")
         {
             let itemVC = segue.destination as! ItemViewController
             
-            if let indexPath = self.collectionView.indexPath(for: <#T##UICollectionViewCell#>)
+            if let indexPath = self.collectionView.indexPathsForSelectedItems?.first
             {
                 //let indexPath = indexPaths[0]
                 let singleItem:ArtData = photoArts[indexPath.row]
-                
+            
                 itemVC.sentLargeImage = singleItem.largeImage
                 print(singleItem.itemName)
             }
