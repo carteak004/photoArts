@@ -6,6 +6,7 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+ 
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -67,11 +68,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         let singleArt:ArtData = photoArts[indexPath.row]
         
-        cell.artImageView.image = loadImage(imageUrl: singleArt.smallImage)
+        cell.artImageView.image = singleArt.smallImage.loadImage()
         cell.artNameLabel.text = singleArt.itemName
         
         return cell
     }
+    
+    
     //MARK: - User defined function for JSON data
     func fetchArtData()
     {
@@ -117,16 +120,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         task.resume()
     }
     
-    //Function to load image from URL in a imageView. It takes the url as input and returns UIImage
-    func loadImage(imageUrl:String) -> UIImage
-    {
-        let url = URL(string: imageUrl)
-        let data = try? Data(contentsOf: url!)
-        
-        return UIImage(data: data!)!
-    }
-    
-    
     
     // MARK: - Navigation
     
@@ -134,7 +127,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "itemNav")
         {
-            let itemVC = segue.destination as! ItemViewController
+            let navVC = segue.destination as! UINavigationController
+            let itemVC = navVC.topViewController as! ItemViewController
             
             if let indexPath = self.collectionView.indexPathsForSelectedItems?.first
             {
@@ -142,11 +136,32 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 let singleItem:ArtData = photoArts[indexPath.row]
             
                 itemVC.sentLargeImage = singleItem.largeImage
-                print(singleItem.itemName)
+                itemVC.title = singleItem.itemName
             }
         }
     }
+    
+    //MARK: - Unwind Segues
+    @IBAction func unwindToCancel(_ segue:UIStoryboardSegue)
+    {
+        
+    }
+    
+    @IBAction func addToCart(_ segue:UIStoryboardSegue)
+    {
+        
+    }
 }
 
+extension String
+{
+    func loadImage() -> UIImage
+    {
+        let url = URL(string: self)
+        let data = try? Data(contentsOf: url!)
+        
+        return UIImage(data: data!)!
+    }
+}
 
 

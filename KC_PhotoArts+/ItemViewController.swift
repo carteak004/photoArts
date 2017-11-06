@@ -5,7 +5,7 @@
 //  Created by Kartheek chintalapati on 30/10/17.
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
-
+/*implementation of picker view is adopted from https://makeapppie.com/2014/09/18/swift-swift-implementing-picker-views/ */
 import UIKit
 
 class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -14,58 +14,35 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var flag = false
     var frame = false
     
-    let Frame = ["No Frame","Matte Black","Matte White", "Brushed Silver", "Matte Brass", "Light Grey Wood"]
-    let sizeWithOutFrame = ["7” x 5” = $24.00", "10” x 8” = $35.00", "14” x 11” = $50.00", "20” x 16” = $76.00", "24” x 18” = $97.00", "40” x 30” = $164.00", "54” x 40” = $230.00", "60” x 44” = $248.00"]
+    let frameComponent = 0
+    let sizeComponent = 1
     
-    let sizeWithFrame = ["7” x 5” = $29.00", "10” x 8” = $46.00", "14” x 11” = $89.00", "20” x 16” = $158.00", "24” x 18” = $189.00", "40” x 30” = $365.00", "54” x 40” = $570.00"]
+    let pickerData = [["No Frame","Matte Black","Matte White", "Brushed Silver", "Matte Brass", "Light Grey Wood"],["7\" x 5\"", "10\" x 8\"", "14\" x 11\"", "20\" x 16\"", "24\" x 18\"", "40\" x 30\"", "54\" x 40\"", "60\" x 44\""]]
+    let price = [["$24.00","$35.00","$50.00","$76.00","$97.00","$164.00","$230.00","$248.00"],["$29.00","$46.00","$89.00","$158.00","$189.00","$365.00","$570.00","Not Available"]]
 
     @IBOutlet weak var largeImageView: UIImageView!
-    @IBOutlet weak var frameButtonLabel: UIButton!
-    @IBOutlet weak var sizeButtonLabel: UIButton!
-    
-    
-    @IBAction func frameButton(_ sender: UIButton) {
-        flag = false
-        pickerView.isHidden = false
-        
-        let selected = Frame[pickerView.selectedRow(inComponent: 0)]
-        
-        frameButtonLabel.titleLabel?.text = selected
-        
-        if frameButtonLabel.titleLabel?.text == "No Frame"
-        {
-            frame = false
-        }
-        else{
-            frame = true
-            sizeButtonLabel.titleLabel?.text = "7” x 5” = $29.00"
-        }
-    }
-    
-    @IBAction func sizeButton(_ sender: UIButton) {
-        flag = true
-        pickerView.isHidden = false
-        
-        let selected:String!
-        
-        if frame
-        {
-            selected = sizeWithFrame[pickerView.selectedRow(inComponent: 0)]
-        }
-        else{
-            selected = sizeWithOutFrame[pickerView.selectedRow(inComponent: 0)]
-        }
-        
-        
-        sizeButtonLabel.titleLabel?.text = selected
-    }
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var frameLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
+    @IBAction func addToCartButtonPressed(_ sender: UIBarButtonItem) {
+        let alertcontroller = UIAlertController(title: "Success", message: "\(title!) added successfully to your cart!!!", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alertcontroller.addAction(okAction)
+        
+        self.present(alertcontroller, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        pickerView.isHidden = true
-        frameButtonLabel.titleLabel?.text = "No Frame"
-        sizeButtonLabel.titleLabel?.text = "7” x 5” = $24.00"
+        
+        largeImageView.image = sentLargeImage.loadImage()   //load image in image view
+        //pickerView.selectRow(0, inComponent: frameComponent, animated: false) //select the No frame component
+        updateLabel()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,38 +52,44 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     //MARK: Picker view Data source Methods
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return pickerData.count
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if !flag
-        {
-            return Frame.count
-        }
-        else if flag && frame
-        {
-            return sizeWithFrame.count
-        }
-        else{
-            return sizeWithOutFrame.count
-        }
+        return pickerData[component].count
     }
     
     //MARK: Picker view Delegate Methods
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if !flag
-        {
-            return Frame[row]
-        }
-        else if flag && frame
-        {
-            return sizeWithFrame[row]
-        }
-        else{
-            return sizeWithOutFrame[row]
-        }
+        return pickerData[component][row]
     }
 
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        updateLabel()
+    }
+    
+    
+    //MARK: User defined functions
+    func updateLabel()
+    {
+        let frameRow = pickerView.selectedRow(inComponent: frameComponent)
+        let sizeRow = pickerView.selectedRow(inComponent: sizeComponent)
+        
+        let frame = pickerData[frameComponent][frameRow]
+        let size = pickerData[sizeComponent][sizeRow]
+        frameLabel.text = frame
+        sizeLabel.text = size
+        if frameRow == 0
+        {
+            priceLabel.text = price[0][sizeRow]
+        }
+        else
+        {
+            priceLabel.text = price[1][sizeRow]
+        }
+        
+    }
+    
     /*
     // MARK: - Navigation
 

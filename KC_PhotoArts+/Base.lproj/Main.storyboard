@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="w2m-Mg-DUD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1036" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="w2m-Mg-DUD">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -43,7 +43,7 @@
                                                     <rect key="frame" x="2" y="2" width="171" height="182"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEZ-fZ-xGz">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEZ-fZ-xGz">
                                                     <rect key="frame" x="2" y="186" width="171" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
@@ -59,7 +59,7 @@
                                         <connections>
                                             <outlet property="artImageView" destination="ZJL-rx-Wko" id="9Z7-Vr-gJd"/>
                                             <outlet property="artNameLabel" destination="BEZ-fZ-xGz" id="2N3-Wl-aJB"/>
-                                            <segue destination="qrn-pu-iRZ" kind="show" identifier="itemNav" id="FcU-J7-bq8"/>
+                                            <segue destination="kFt-DS-CCs" kind="presentation" identifier="itemNav" modalTransitionStyle="flipHorizontal" id="wnj-is-6lx"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -71,7 +71,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="PhotoArts+" id="Elv-oM-XP3"/>
+                    <navigationItem key="navigationItem" title="PhotoArts+" id="Elv-oM-XP3">
+                        <barButtonItem key="rightBarButtonItem" image="cart" id="kz8-xh-Ta2"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="bAL-ES-YzQ" id="uBd-en-cHn"/>
                     </connections>
@@ -105,48 +107,54 @@
                                 </connections>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQh-dC-HJU">
-                                <rect key="frame" x="16" y="400" width="102" height="21"/>
+                                <rect key="frame" x="16" y="400" width="233" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSM-oo-PbB">
-                                <rect key="frame" x="16" y="440" width="102" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HSM-oo-PbB">
+                                <rect key="frame" x="257" y="400" width="102" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SPU-BN-l7G">
-                                <rect key="frame" x="252" y="395" width="107" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZf-JY-IAC">
+                                <rect key="frame" x="16" y="440" width="343" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="frameButton:" destination="qrn-pu-iRZ" eventType="touchUpInside" id="vub-cA-hlc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxM-fm-4M7">
-                                <rect key="frame" x="252" y="435" width="107" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="sizeButton:" destination="qrn-pu-iRZ" eventType="touchUpInside" id="iht-Ba-WVw"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="cRi-MG-CSG">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="X48-4f-Uuh">
+                            <connections>
+                                <segue destination="sYB-vU-d1B" kind="unwind" unwindAction="unwindToCancel:" id="HHl-tw-CcX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="addToCart" id="4Gh-hK-6j0">
+                            <connections>
+                                <action selector="addToCartButtonPressed:" destination="qrn-pu-iRZ" id="inr-w8-emw"/>
+                                <segue destination="sYB-vU-d1B" kind="unwind" unwindAction="addToCart:" id="RgJ-cH-31I"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="frameButtonLabel" destination="SPU-BN-l7G" id="1Yw-jo-4jw"/>
+                        <outlet property="frameLabel" destination="tQh-dC-HJU" id="qmg-HS-VXz"/>
                         <outlet property="largeImageView" destination="ZIO-vc-ocY" id="RgK-kY-Fyb"/>
                         <outlet property="pickerView" destination="xy8-wr-e5b" id="nKw-J6-HPW"/>
-                        <outlet property="sizeButtonLabel" destination="uxM-fm-4M7" id="1Mk-BY-ZfV"/>
+                        <outlet property="priceLabel" destination="SZf-JY-IAC" id="quH-E5-pfw"/>
+                        <outlet property="sizeLabel" destination="HSM-oo-PbB" id="Dhr-GY-hbH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOp-qx-6F0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="sYB-vU-d1B" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1805.5999999999999" y="138.98050974512745"/>
+            <point key="canvasLocation" x="1789.5999999999999" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ymv-CF-dWg">
@@ -166,5 +174,27 @@
             </objects>
             <point key="canvasLocation" x="134" y="139"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="80R-0O-TV6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kFt-DS-CCs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pZJ-uR-LzX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="qrn-pu-iRZ" kind="relationship" relationship="rootViewController" id="LC9-VT-0bt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CwQ-vg-hdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1790" y="-627"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="addToCart" width="25" height="25"/>
+        <image name="cart" width="25" height="25"/>
+    </resources>
 </document>
