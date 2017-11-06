@@ -13,7 +13,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     //MARK: Variables
     var photoArts = [ArtData]()
+    var shoppingCart = [CartData]()
     var inactiveQueue:DispatchQueue!
+    var alertcontroller:UIAlertController!
+    
+    var itemNumber:String!
+    var itemName:String!
+    var itemImageURL:String!
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -125,10 +131,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         if (segue.identifier == "itemNav")
         {
             let navVC = segue.destination as! UINavigationController
-            let itemVC = navVC.topViewController as! ItemViewController
+            let itemVC = navVC.topViewController as! ItemViewController //this is written as segue is connected to navigation controller and nav controller is connected to itemVC
             
             if let indexPath = self.collectionView.indexPathsForSelectedItems?.first
             {
@@ -137,6 +144,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             
                 itemVC.sentLargeImage = singleItem.largeImage
                 itemVC.title = singleItem.itemName
+                
+                itemName = singleItem.itemName
+                itemNumber = singleItem.itemNumber
+                itemImageURL  = singleItem.smallImage
+                
             }
         }
     }
@@ -149,7 +161,22 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBAction func addToCart(_ segue:UIStoryboardSegue)
     {
-        
+        if let itemVC = segue.source as? ItemViewController
+        {
+            /******************************************************************************************************************************************************/
+            alertcontroller = UIAlertController(title: "Success", message: "\(itemVC.title!) added successfully to your cart!!!", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            
+            alertcontroller.addAction(okAction)
+            
+            //self.present(alertcontroller, animated: true, completion: nil)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertcontroller, animated: true, completion: nil)
+            /******************************************************************************************************************************************************/
+            
+            shoppingCart.append(CartData(quantity: itemVC.quantity, size: itemVC.size, frame: itemVC.frame, itemPrice: itemVC.itemPrice, itemTotal: itemVC.itemTotal, itemNumber: itemNumber, itemName: itemName, itemImageURL: itemImageURL))
+            
+        }
     }
 }
 

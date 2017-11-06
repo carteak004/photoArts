@@ -11,30 +11,32 @@ import UIKit
 class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var sentLargeImage:String!
-    var flag = false
-    var frame = false
-    
     let frameComponent = 0
     let sizeComponent = 1
     
     let pickerData = [["No Frame","Matte Black","Matte White", "Brushed Silver", "Matte Brass", "Light Grey Wood"],["7\" x 5\"", "10\" x 8\"", "14\" x 11\"", "20\" x 16\"", "24\" x 18\"", "40\" x 30\"", "54\" x 40\"", "60\" x 44\""]]
-    let price = [["$24.00","$35.00","$50.00","$76.00","$97.00","$164.00","$230.00","$248.00"],["$29.00","$46.00","$89.00","$158.00","$189.00","$365.00","$570.00","Not Available"]]
+    let price = [[24,35,50,76,97,164,230,248],[29,46,89,158,189,365,570,0]]
+    
+    var quantity = 1
+    var size:String!
+    var frame:String!
+    var itemPrice:Int!
+    var itemTotal:Int!
 
     @IBOutlet weak var largeImageView: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var frameLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var quantityLabel: UILabel!
+    @IBOutlet weak var quantityStepperLabel: UIStepper!
     
-    @IBAction func addToCartButtonPressed(_ sender: UIBarButtonItem) {
-        let alertcontroller = UIAlertController(title: "Success", message: "\(title!) added successfully to your cart!!!", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        
-        alertcontroller.addAction(okAction)
-        
-        self.present(alertcontroller, animated: true, completion: nil)
+    @IBAction func quantityStepper(_ sender: UIStepper) {
+        quantity = Int(sender.value)
+        quantityLabel.text = quantity.description
+        updateLabel()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,23 +71,46 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     
+    
     //MARK: User defined functions
     func updateLabel()
     {
         let frameRow = pickerView.selectedRow(inComponent: frameComponent)
         let sizeRow = pickerView.selectedRow(inComponent: sizeComponent)
         
-        let frame = pickerData[frameComponent][frameRow]
-        let size = pickerData[sizeComponent][sizeRow]
+        frame = pickerData[frameComponent][frameRow]
+        size = pickerData[sizeComponent][sizeRow]
+        
         frameLabel.text = frame
         sizeLabel.text = size
+        
+        quantityStepperLabel.isEnabled = true
+        quantityStepperLabel.tintColor = UIColor.blue
+        quantityLabel.textColor = UIColor.black
+        
         if frameRow == 0
         {
-            priceLabel.text = price[0][sizeRow]
+            itemPrice = price[0][sizeRow]
+            itemTotal = itemPrice*quantity
+            priceLabel.text = (itemTotal).description
         }
         else
         {
-            priceLabel.text = price[1][sizeRow]
+            itemPrice = price[1][sizeRow]
+            itemTotal = itemPrice*quantity
+
+            if itemPrice == 0
+            {
+                priceLabel.text = "Not Available"
+                quantityStepperLabel.isEnabled = false
+                quantityStepperLabel.tintColor = UIColor.gray
+                quantityLabel.textColor = UIColor.gray
+                
+            }
+            else
+            {
+                priceLabel.text = (itemTotal).description
+            }
         }
         
     }

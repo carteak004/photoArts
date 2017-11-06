@@ -1,0 +1,33 @@
+//
+//  CartData.swift
+//  KC_PhotoArts+
+//
+//  Created by ta on 11/6/17.
+//  Copyright © 2017 Northern Illinois University. All rights reserved.
+//
+
+import UIKit
+
+class CartData: NSObject {
+
+    var quantity:Int!
+    var size:String!
+    var frame:String!
+    var itemPrice:Int!
+    var itemTotal:Int!
+    var itemNumber:String!
+    var itemName:String!
+    var itemImageURL:String!
+    
+    init(quantity:Int, size:String, frame:String, itemPrice:Int, itemTotal:Int, itemNumber:String, itemName:String, itemImageURL:String)
+    {
+        self.quantity = quantity
+        self.frame = frame
+        self.size = size
+        self.itemPrice = itemPrice
+        self.itemTotal = itemTotal
+        self.itemNumber = itemNumber
+        self.itemImageURL = itemImageURL
+    }
+    
+}

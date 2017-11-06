@@ -18,6 +18,8 @@
 		0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35B1FA5A2B100167B3A /* ArtData.swift */; };
 		0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35D1FA6764000167B3A /* CVCell.swift */; };
 		0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */; };
+		132318D01FB0FACE002A385D /* CartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132318CF1FB0FACD002A385D /* CartData.swift */; };
+		132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132318D41FB0FF1C002A385D /* CartViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		0D8CA35B1FA5A2B100167B3A /* ArtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtData.swift; sourceTree = "<group>"; };
 		0D8CA35D1FA6764000167B3A /* CVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCell.swift; sourceTree = "<group>"; };
 		0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
+		132318CF1FB0FACD002A385D /* CartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartData.swift; sourceTree = "<group>"; };
+		132318D41FB0FF1C002A385D /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,14 +109,11 @@
 		0D19610D1F9F83AA00261FD5 /* KC_PhotoArts+ */ = {
 			isa = PBXGroup;
 			children = (
-				0D19610E1F9F83AA00261FD5 /* AppDelegate.swift */,
-				0D1961101F9F83AA00261FD5 /* ViewController.swift */,
-				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
-				0D8CA35D1FA6764000167B3A /* CVCell.swift */,
-				0D1961121F9F83AA00261FD5 /* Main.storyboard */,
-				0D8CA35B1FA5A2B100167B3A /* ArtData.swift */,
+				132318D11FB0FBA5002A385D /* Model */,
+				132318D21FB0FBC2002A385D /* View */,
+				132318D31FB0FBD5002A385D /* Controller */,
 				0D1961181F9F83AA00261FD5 /* Assets.xcassets */,
-				0D19611A1F9F83AA00261FD5 /* LaunchScreen.storyboard */,
+				0D19610E1F9F83AA00261FD5 /* AppDelegate.swift */,
 				0D19611D1F9F83AB00261FD5 /* Info.plist */,
 				0D1961151F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld */,
 			);
@@ -135,6 +136,35 @@
 				0D1961331F9F83AB00261FD5 /* Info.plist */,
 			);
 			path = "KC_PhotoArts+UITests";
+			sourceTree = "<group>";
+		};
+		132318D11FB0FBA5002A385D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				132318CF1FB0FACD002A385D /* CartData.swift */,
+				0D8CA35B1FA5A2B100167B3A /* ArtData.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		132318D21FB0FBC2002A385D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0D1961121F9F83AA00261FD5 /* Main.storyboard */,
+				0D19611A1F9F83AA00261FD5 /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		132318D31FB0FBD5002A385D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0D1961101F9F83AA00261FD5 /* ViewController.swift */,
+				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
+				132318D41FB0FF1C002A385D /* CartViewController.swift */,
+				0D8CA35D1FA6764000167B3A /* CVCell.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +308,8 @@
 				0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */,
 				0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */,
 				0D19610F1F9F83AA00261FD5 /* AppDelegate.swift in Sources */,
+				132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */,
+				132318D01FB0FACE002A385D /* CartData.swift in Sources */,
 				0D1961171F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld in Sources */,
 				0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */,
 			);
