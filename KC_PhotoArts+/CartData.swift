@@ -10,6 +10,8 @@ import UIKit
 
 class CartData: NSObject {
 
+    static var sharedInstance = [CartData]() /*https://stackoverflow.com/questions/27651507/passing-data-between-tab-viewed-controllers-in-swift*/
+    
     var quantity:Int!
     var size:String!
     var frame:String!
@@ -18,7 +20,7 @@ class CartData: NSObject {
     var itemNumber:String!
     var itemName:String!
     var itemImageURL:String!
-    
+    /*
     init(quantity:Int, size:String, frame:String, itemPrice:Int, itemTotal:Int, itemNumber:String, itemName:String, itemImageURL:String)
     {
         self.quantity = quantity
@@ -28,6 +30,7 @@ class CartData: NSObject {
         self.itemTotal = itemTotal
         self.itemNumber = itemNumber
         self.itemImageURL = itemImageURL
+        self.itemName = itemName
     }
-    
+    */
 }

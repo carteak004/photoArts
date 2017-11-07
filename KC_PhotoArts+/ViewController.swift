@@ -9,11 +9,11 @@
  
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     //MARK: Variables
     var photoArts = [ArtData]()
-    var shoppingCart = [CartData]()
+    
     var inactiveQueue:DispatchQueue!
     var alertcontroller:UIAlertController!
     
@@ -151,6 +151,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
                 
             }
         }
+        /*
+        if (segue.identifier == "cartNav")
+        {
+            let navVC = segue.destination as! UINavigationController
+            let cartVC = navVC.topViewController as! CartViewController //this is written as segue is connected to navigation controller and nav controller is connected to itemVC
+            cartVC.sentCartData = shoppingCart
+
+        }*/
     }
     
     //MARK: - Unwind Segues
@@ -173,8 +181,17 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             //self.present(alertcontroller, animated: true, completion: nil)
             UIApplication.shared.keyWindow?.rootViewController?.present(alertcontroller, animated: true, completion: nil)
             /******************************************************************************************************************************************************/
+            let cartItem = CartData()
+            cartItem.quantity = itemVC.quantity
+            cartItem.size = itemVC.size
+            cartItem.frame = itemVC.frame
+            cartItem.itemPrice = itemVC.itemPrice
+            cartItem.itemTotal = itemVC.itemTotal
+            cartItem.itemNumber = itemNumber
+            cartItem.itemName = itemName
+            cartItem.itemImageURL = itemImageURL
             
-            shoppingCart.append(CartData(quantity: itemVC.quantity, size: itemVC.size, frame: itemVC.frame, itemPrice: itemVC.itemPrice, itemTotal: itemVC.itemTotal, itemNumber: itemNumber, itemName: itemName, itemImageURL: itemImageURL))
+            CartData.sharedInstance.append(cartItem)
             
         }
     }
