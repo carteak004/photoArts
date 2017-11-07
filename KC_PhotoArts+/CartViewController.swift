@@ -15,6 +15,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var emptyLabel: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var checkOutButtonLabel: UIButton!
+    @IBOutlet weak var totalPriceLabel: UILabel!
     
     
     @IBAction func checkOutButton(_ sender: UIButton) {
@@ -26,15 +27,21 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
             cartTableView.isHidden = true
             emptyLabel.isHidden = false
-            print("empty")
+            //print("empty")
         }
         else{
             cartTableView.isHidden = false
             emptyLabel.isHidden = true
-            print("not empty")
+           // print("not empty")
         }
-        print(CartData.sharedInstance.count)
+        //print(CartData.sharedInstance.count)
         cartTableView.reloadData()
+        var totalPrice = 0
+        for item in CartData.sharedInstance
+        {
+            totalPrice += item.quantity * item.itemPrice
+        }
+        totalPriceLabel.text = totalPrice.description
     }
     override func viewDidLoad() {
         super.viewDidLoad()

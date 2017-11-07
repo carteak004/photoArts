@@ -172,7 +172,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
         if let itemVC = segue.source as? ItemViewController
         {
             /******************************************************************************************************************************************************/
-            alertcontroller = UIAlertController(title: "Success", message: "\(itemVC.title!) added successfully to your cart!!!", preferredStyle: .alert)
+            alertcontroller = UIAlertController(title: "Success", message: "added successfully to your cart!!!", preferredStyle: .alert)
             
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             

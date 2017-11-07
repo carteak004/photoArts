@@ -30,6 +30,7 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var quantityStepperLabel: UIStepper!
+    @IBOutlet weak var addToCartButtonLabel: UIBarButtonItem!
     
     @IBAction func quantityStepper(_ sender: UIStepper) {
         quantity = Int(sender.value)
