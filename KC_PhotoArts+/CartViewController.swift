@@ -34,7 +34,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             emptyLabel.isHidden = true
            // print("not empty")
         }
-        //print(CartData.sharedInstance.count)
+        print(CartData.sharedInstance.count)
         cartTableView.reloadData()
         var totalPrice = 0
         for item in CartData.sharedInstance
@@ -47,7 +47,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         
-        print("load")
+        //print("load")
         //print(CartData.sharedInstance.count)
         //print(CartData.sharedInstance[0].quantity)
         // Do any additional setup after loading the view.
@@ -82,6 +82,17 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
+    {
+        if editingStyle == .delete
+        {
+            CartData.sharedInstance.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+        print(CartData.sharedInstance.count)
+    }
+    
     
     /*
     // MARK: - Navigation
