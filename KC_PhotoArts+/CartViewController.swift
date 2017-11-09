@@ -10,7 +10,7 @@ import UIKit
 
 class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    //var CartData.sharedInstance = [CartData]()
+    //var totalPrice = 0
     
     @IBOutlet weak var emptyLabel: UILabel!
     @IBOutlet weak var cartTableView: UITableView!
@@ -27,21 +27,25 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
             cartTableView.isHidden = true
             emptyLabel.isHidden = false
+            checkOutButtonLabel.isEnabled = false
+            checkOutButtonLabel.tintColor = UIColor.gray
             //print("empty")
         }
         else{
             cartTableView.isHidden = false
             emptyLabel.isHidden = true
+            checkOutButtonLabel.isEnabled = true
+            checkOutButtonLabel.tintColor = UIColor(red: 42, green: 216, blue: 42, alpha: 1)
            // print("not empty")
         }
-        print(CartData.sharedInstance.count)
+        //print(CartData.sharedInstance.count)
         cartTableView.reloadData()
-        var totalPrice = 0
+        //print(CartData.sharedInstance.count)
         for item in CartData.sharedInstance
         {
-            totalPrice += item.quantity * item.itemPrice
+            CartData.totalPrice += item.quantity * item.itemPrice
         }
-        totalPriceLabel.text = totalPrice.description
+        totalPriceLabel.text = "$\(CartData.totalPrice).00"
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +87,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
+    /*swipe left to delete feature. adopted from https://www.hackingwithswift.com/example-code/uikit/how-to-swipe-to-delete-uitableviewcells */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
         if editingStyle == .delete
@@ -90,17 +95,31 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             CartData.sharedInstance.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        print(CartData.sharedInstance.count)
+        //print(CartData.sharedInstance.count)
     }
     
+    
+    // MARK - Unwind segue
+    @IBAction func unwindToCancel(_ segue:UIStoryboardSegue)
+    {
+        CartData.totalPrice = 0
+    }
     
     /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "checkOut"
+        {
+            let navVc = segue.destination as! UINavigationController
+            let checkOutVC = navVc.topViewController as! CheckoutViewController
+            let checkOutVC = segue.destination as! CheckoutViewController
+            
+            checkOutVC.sentSubTotal = Double(totalPrice)
+        }
+ 
+        
     }
     */
 

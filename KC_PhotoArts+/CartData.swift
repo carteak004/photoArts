@@ -12,6 +12,8 @@ class CartData: NSObject {
 
     static var sharedInstance = [CartData]() /*https://stackoverflow.com/questions/27651507/passing-data-between-tab-viewed-controllers-in-swift*/
     
+    static var totalPrice:Int = 0
+    
     var quantity:Int!
     var size:String!
     var frame:String!

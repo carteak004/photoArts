@@ -88,6 +88,8 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         quantityStepperLabel.isEnabled = true
         quantityStepperLabel.tintColor = UIColor.blue
         quantityLabel.textColor = UIColor.black
+        addToCartButtonLabel.isEnabled = true
+        addToCartButtonLabel.tintColor = UIColor.blue
         
         if frameRow == 0
         {
@@ -106,6 +108,8 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
                 quantityStepperLabel.isEnabled = false
                 quantityStepperLabel.tintColor = UIColor.gray
                 quantityLabel.textColor = UIColor.gray
+                addToCartButtonLabel.isEnabled = false
+                addToCartButtonLabel.tintColor = UIColor.gray
                 
             }
             else

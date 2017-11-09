@@ -15,6 +15,7 @@
 		0D19611C1F9F83AA00261FD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D19611A1F9F83AA00261FD5 /* LaunchScreen.storyboard */; };
 		0D1961271F9F83AB00261FD5 /* KC_PhotoArts_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1961261F9F83AB00261FD5 /* KC_PhotoArts_Tests.swift */; };
 		0D1961321F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1961311F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift */; };
+		0D60FDE81FB3C49900BE1435 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */; };
 		0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35B1FA5A2B100167B3A /* ArtData.swift */; };
 		0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35D1FA6764000167B3A /* CVCell.swift */; };
 		0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */; };
@@ -55,6 +56,7 @@
 		0D19612D1F9F83AB00261FD5 /* KC_PhotoArts+UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KC_PhotoArts+UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D1961311F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KC_PhotoArts_UITests.swift; sourceTree = "<group>"; };
 		0D1961331F9F83AB00261FD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		0D8CA35B1FA5A2B100167B3A /* ArtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtData.swift; sourceTree = "<group>"; };
 		0D8CA35D1FA6764000167B3A /* CVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCell.swift; sourceTree = "<group>"; };
 		0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
 				132318D41FB0FF1C002A385D /* CartViewController.swift */,
 				0DCB32181FB13DCB00CDAB36 /* CartTableViewCell.swift */,
+				0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */,
 				132318D01FB0FACE002A385D /* CartData.swift in Sources */,
 				0D1961171F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld in Sources */,
+				0D60FDE81FB3C49900BE1435 /* CheckoutViewController.swift in Sources */,
 				0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

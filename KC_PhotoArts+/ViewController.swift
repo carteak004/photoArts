@@ -15,7 +15,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     var photoArts = [ArtData]()
     
     var inactiveQueue:DispatchQueue!
-    var alertcontroller:UIAlertController!
+    //var alertcontroller:UIAlertController!
     
     var itemNumber:String!
     var itemName:String!
@@ -27,7 +27,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         /*
         //create custom size for each of the image items in the collection view. each item is 1/2 of the screen width, minus 5 points
-        let itemSize = UIScreen.main.bounds.width/2 - 3
+        let itemSize = UIScreen.main.bounds.width/2 - 5
         
         //create a custom layout to hold yhr customer sized items
         let layout = UICollectionViewFlowLayout()
@@ -35,8 +35,8 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         
         //set spacing between items in the collection view
-        layout.minimumInteritemSpacing = 3
-        layout.minimumLineSpacing = 3
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 5
         
         //After connecting collection view to the ciewcontroller class. we can now add the new layout to the collection view.
         collectionView.collectionViewLayout = layout
@@ -171,7 +171,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     {
         if let itemVC = segue.source as? ItemViewController
         {
-            /******************************************************************************************************************************************************/
+            /******************************************************************************************************************************************************
             alertcontroller = UIAlertController(title: "Success", message: "added successfully to your cart!!!", preferredStyle: .alert)
             
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -180,7 +180,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
             
             //self.present(alertcontroller, animated: true, completion: nil)
             UIApplication.shared.keyWindow?.rootViewController?.present(alertcontroller, animated: true, completion: nil)
-            /******************************************************************************************************************************************************/
+            ******************************************************************************************************************************************************/
             let cartItem = CartData()
             cartItem.quantity = itemVC.quantity
             cartItem.size = itemVC.size
