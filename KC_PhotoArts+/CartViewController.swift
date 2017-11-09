@@ -27,15 +27,13 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         {
             cartTableView.isHidden = true
             emptyLabel.isHidden = false
-            checkOutButtonLabel.isEnabled = false
-            checkOutButtonLabel.tintColor = UIColor.gray
+            checkOutButtonLabel.isHidden = true
             //print("empty")
         }
         else{
             cartTableView.isHidden = false
             emptyLabel.isHidden = true
-            checkOutButtonLabel.isEnabled = true
-            checkOutButtonLabel.tintColor = UIColor(red: 42, green: 216, blue: 42, alpha: 1)
+            checkOutButtonLabel.isHidden = false
            // print("not empty")
         }
         //print(CartData.sharedInstance.count)

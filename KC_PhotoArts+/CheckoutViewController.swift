@@ -19,11 +19,15 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var dateOfDeliveryLabel: UILabel!
     @IBOutlet weak var shippingMethodPickerView: UIPickerView!
+    @IBOutlet weak var priceView: UIView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        priceView.layer.borderWidth = 1
+        priceView.layer.borderColor = UIColor.gray.cgColor
+        
         subtotalLabel.text = "$\(CartData.totalPrice).00"
         updateLabel()
     }
@@ -49,6 +53,23 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         updateLabel()
+    }
+    
+    
+    /*adopted from https://stackoverflow.com/questions/7185440/how-to-change-the-font-size-in-uipickerview to change the font of the picker view. */
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var label = UILabel()
+        
+        if let v = view {
+            label = v as! UILabel
+        }
+        
+        label.font = UIFont(name: "System", size: 17)
+        label.textColor = UIColor.black
+        label.text = shippingMethod[row]
+        label.textAlignment = .center
+        
+        return label
     }
     
     
