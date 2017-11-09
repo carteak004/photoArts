@@ -16,43 +16,17 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var cartTableView: UITableView!
     @IBOutlet weak var checkOutButtonLabel: UIButton!
     @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     
     
-    @IBAction func checkOutButton(_ sender: UIButton) {
-    }
     
     override func viewWillAppear(_ animated: Bool) {
-        //CartData.sharedInstance = collectionVC.shoppingCart
-        if CartData.sharedInstance.count == 0
-        {
-            cartTableView.isHidden = true
-            emptyLabel.isHidden = false
-            checkOutButtonLabel.isHidden = true
-            //print("empty")
-        }
-        else{
-            cartTableView.isHidden = false
-            emptyLabel.isHidden = true
-            checkOutButtonLabel.isHidden = false
-           // print("not empty")
-        }
-        //print(CartData.sharedInstance.count)
-        cartTableView.reloadData()
-        //print(CartData.sharedInstance.count)
-        for item in CartData.sharedInstance
-        {
-            CartData.totalPrice += item.quantity * item.itemPrice
-        }
-        totalPriceLabel.text = "$\(CartData.totalPrice).00"
+        checkOutViewUpdate()
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        //print("load")
-        //print(CartData.sharedInstance.count)
-        //print(CartData.sharedInstance[0].quantity)
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,7 +67,42 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             CartData.sharedInstance.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+        checkOutViewUpdate()
         //print(CartData.sharedInstance.count)
+    }
+    
+    // MARK - User defined functions
+    
+    //function to update check out view. If there are no items in the cart, it will hide the controls on the screen or else it will display everything.
+    
+    func checkOutViewUpdate()
+    {
+        if CartData.sharedInstance.count == 0
+        {
+            cartTableView.isHidden = true
+            emptyLabel.isHidden = false
+            checkOutButtonLabel.isHidden = true
+            totalPriceLabel.isHidden = true
+            priceLabel.isHidden = true
+            //print("empty")
+        }
+        else{
+            cartTableView.isHidden = false
+            emptyLabel.isHidden = true
+            checkOutButtonLabel.isHidden = false
+            totalPriceLabel.isHidden = false
+            priceLabel.isHidden = false
+            // print("not empty")
+        }
+        //print(CartData.sharedInstance.count)
+        cartTableView.reloadData()
+        CartData.totalPrice = 0
+        //print(CartData.sharedInstance.count)
+        for item in CartData.sharedInstance
+        {
+            CartData.totalPrice += item.quantity * item.itemPrice
+        }
+        totalPriceLabel.text = "$\(CartData.totalPrice).00"
     }
     
     

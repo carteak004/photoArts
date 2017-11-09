@@ -181,7 +181,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
             //self.present(alertcontroller, animated: true, completion: nil)
             UIApplication.shared.keyWindow?.rootViewController?.present(alertcontroller, animated: true, completion: nil)
             ******************************************************************************************************************************************************/
-            let cartItem = CartData()
+            /*let cartItem = CartData()
             cartItem.quantity = itemVC.quantity
             cartItem.size = itemVC.size
             cartItem.frame = itemVC.frame
@@ -192,7 +192,8 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
             cartItem.itemImageURL = itemImageURL
             
             CartData.sharedInstance.append(cartItem)
-            
+            */
+            CartData.sharedInstance.append(CartData(quantity: itemVC.quantity, size: itemVC.size, frame: itemVC.frame, itemPrice: itemVC.itemPrice, itemTotal: itemVC.itemTotal, itemNumber: itemNumber, itemName: itemName, itemImageURL: itemImageURL))
         }
     }
 }

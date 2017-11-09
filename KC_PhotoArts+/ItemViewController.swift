@@ -95,7 +95,7 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         {
             itemPrice = price[0][sizeRow]
             itemTotal = itemPrice*quantity
-            priceLabel.text = (itemTotal).description
+            priceLabel.text = "$\(itemTotal!).00"
         }
         else
         {
@@ -114,7 +114,7 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             }
             else
             {
-                priceLabel.text = (itemTotal).description
+                priceLabel.text = "$\(itemTotal!).00"
             }
         }
         
