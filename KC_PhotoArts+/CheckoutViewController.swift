@@ -110,21 +110,36 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     {
         totalLabel.text = "$\(Double(CartData.totalPrice) + price)"
         
-        /*cdode adopted from https://stackoverflow.com/questions/39513258/get-current-date-in-swift-3 */
+        /*code adopted from https://stackoverflow.com/questions/39513258/get-current-date-in-swift-3 */
         let date = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: date)
         
         return "\(components.month!)/\(components.day! + lag)/\(components.year!)"
     }
-    /*
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "shipping2"
+        {
+            let AddressVC = segue.destination as! ShippingAddressTableViewController
+            
+            var numberOfItems = 0
+            
+            for item in CartData.sharedInstance
+            {
+                numberOfItems += item.quantity
+            }
+            
+            AddressVC.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
+            AddressVC.items = numberOfItems
+            AddressVC.price = totalLabel.text
+            AddressVC.date = dateOfDeliveryLabel.text
+        }
+     
     }
-    */
 
 }
