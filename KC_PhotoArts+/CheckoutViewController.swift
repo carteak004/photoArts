@@ -125,7 +125,7 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "shipping2"
         {
-            let AddressVC = segue.destination as! ShippingAddressTableViewController
+            let AddressVC = segue.destination as! ShippingAddressViewController
             
             var numberOfItems = 0
             

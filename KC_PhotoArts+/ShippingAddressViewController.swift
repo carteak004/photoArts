@@ -1,5 +1,5 @@
 //
-//  ShippingAddressTableViewController.swift
+//  ShippingAddressViewController.swift
 //  KC_PhotoArts+
 //
 //  Created by ta on 11/9/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShippingAddressTableViewController: UITableViewController, UITextFieldDelegate {
+class ShippingAddressViewController: UIViewController {
     
     var items:Int!
     var date:String!
