@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17B48" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rX0-HB-YFm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rX0-HB-YFm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -243,7 +243,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="173"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BDt-C1-tTK" id="5C3-Rx-qiW" customClass="CartTableViewCell" customModule="KC_PhotoArts_" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="172.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="173"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPs-Sk-hZK">
@@ -680,7 +680,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Shipping" id="Fmp-Z0-20u">
-                        <barButtonItem key="leftBarButtonItem" title="&lt;Cart" id="tgM-nc-CPw"/>
+                        <barButtonItem key="leftBarButtonItem" title="&lt;Cart" id="tgM-nc-CPw">
+                            <connections>
+                                <segue destination="Gex-dm-0M1" kind="unwind" unwindAction="unwindToCancel:" id="UDC-VG-8gH"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addressTextField" destination="eVc-Xh-ovT" id="8aU-e2-Pjl"/>
@@ -698,6 +702,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9J3-vA-ObN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Gex-dm-0M1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4677.6000000000004" y="920.68965517241384"/>
         </scene>
@@ -892,11 +897,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Shipping" id="e8D-ir-b7r"/>
+                    <navigationItem key="navigationItem" title="Shipping" id="e8D-ir-b7r">
+                        <barButtonItem key="leftBarButtonItem" title="&lt; Cart" id="MI2-fw-pAD">
+                            <connections>
+                                <segue destination="RDs-4N-aLf" kind="unwind" unwindAction="unwindToCancel:" id="zvs-Ic-wtS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qv8-pg-yZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="RDs-4N-aLf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5637.6000000000004" y="890.10494752623697"/>
+            <point key="canvasLocation" x="5639" y="914"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="HVJ-Qc-8Bm">
