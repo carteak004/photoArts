@@ -22,9 +22,16 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     var itemImageURL:String!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        activityIndicator.hidesWhenStopped = true       //hide the activity indicator when it is not animating
+        
         super.viewDidLoad()
+        
+        collectionView.isHidden = true
+        activityIndicator.startAnimating()
+        
         /*
         //create custom size for each of the image items in the collection view. each item is 1/2 of the screen width, minus 5 points
         let itemSize = UIScreen.main.bounds.width/2 - 5
@@ -115,6 +122,8 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
                         }
                     }
                     DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                        self.collectionView.isHidden = false
                         self.collectionView.reloadData()
                     }
                 }
