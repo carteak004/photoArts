@@ -10,12 +10,6 @@ import UIKit
 
 class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
-    var items:Int!
-    var date:String!
-    var shippingMethod:String!
-    var price:String!
-    
-    
     @IBOutlet weak var shippingTypeLabel: UILabel!
     @IBOutlet weak var totalItemsLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
@@ -30,6 +24,15 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
     
+    @IBAction func continueButton(_ sender: UIButton) {
+        CheckoutCart.chekOutData.firstName = firstNameTextField.text!
+        CheckoutCart.chekOutData.lastName = lastNameTextField.text!
+        CheckoutCart.chekOutData.streetAddress = addressTextField.text!
+        CheckoutCart.chekOutData.city = cityTextField.text!
+        CheckoutCart.chekOutData.state = stateTextField.text!
+        CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,10 +40,10 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
-        shippingTypeLabel.text = "Shipping Type: \(shippingMethod!)"
-        totalItemsLabel.text = "Total Items: \(items!)"
-        totalPriceLabel.text = "Total Price: \(price!)"
-        deliveryDateLabel.text = "Est. Delivery Date: \(date!)"
+        shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod!)"
+        totalItemsLabel.text = "Total Items: \(CheckoutCart.chekOutData.items!)"
+        totalPriceLabel.text = "Total Price: \(CheckoutCart.chekOutData.price!)"
+        deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date!)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -82,14 +85,16 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "shipping3"
+        /*if segue.identifier == "shipping3"
         {
-            let navVC = segue.destination as! UINavigationController
-            let paymentVC = navVC.topViewController as! PaymentViewController
             
-            paymentVC.sentName = firstNameTextField.text! + lastNameTextField.text!
-            paymentVC.sentAddress = "\(addressTextField.text!)  \r\n \(cityTextField.text!) \r\n \(stateTextField.text!) - \(zipCodeTextField.text!)"
+            CheckoutCart.chekOutData.firstName = firstNameTextField.text!
+            CheckoutCart.chekOutData.lastName = lastNameTextField.text!
+            CheckoutCart.chekOutData.streetAddress = addressTextField.text!
+            CheckoutCart.chekOutData.city = cityTextField.text!
+            CheckoutCart.chekOutData.state = stateTextField.text!
+            CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
             
-        }
+        }*/
     }
 }

@@ -21,6 +21,19 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var shippingMethodPickerView: UIPickerView!
     @IBOutlet weak var priceView: UIView!
     
+    @IBAction func continueButton(_ sender: UIButton) {
+        var numberOfItems = 0
+        
+        for item in CartData.sharedInstance
+        {
+            numberOfItems += item.quantity
+        }
+        
+        CheckoutCart.chekOutData.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
+        CheckoutCart.chekOutData.items = numberOfItems
+        CheckoutCart.chekOutData.price = totalLabel.text
+        CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,11 +136,8 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "shipping2"
+        /*if segue.identifier == "shipping2"
         {
-            let navVC = segue.destination as! UINavigationController
-            let AddressVC = navVC.topViewController as! ShippingAddressViewController
-            
             var numberOfItems = 0
             
             for item in CartData.sharedInstance
@@ -135,11 +145,11 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 numberOfItems += item.quantity
             }
             
-            AddressVC.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
-            AddressVC.items = numberOfItems
-            AddressVC.price = totalLabel.text
-            AddressVC.date = dateOfDeliveryLabel.text
-        }
+            CheckoutCart.chekOutData.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
+            CheckoutCart.chekOutData.items = numberOfItems
+            CheckoutCart.chekOutData.price = totalLabel.text
+            CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text
+        }*/
      
     }
 

@@ -9,9 +9,6 @@
 import UIKit
 
 class PaymentViewController: UIViewController {
-
-    var sentName:String!
-    var sentAddress:String!
     
     
     override func viewDidLoad() {
