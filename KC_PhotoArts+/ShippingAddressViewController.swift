@@ -12,8 +12,10 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var shippingTypeLabel: UILabel!
     @IBOutlet weak var totalItemsLabel: UILabel!
-    @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var deliveryDateLabel: UILabel!
+    @IBOutlet weak var shippingOptionsLabel: UILabel!
+    @IBOutlet weak var shippingOptionsDescriptionLabel: UILabel!
+    
 
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -24,7 +26,7 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
     
-    @IBAction func continueButton(_ sender: UIButton) {
+    @IBAction func continueButton(_ sender: UIBarButtonItem) {
         CheckoutCart.chekOutData.firstName = firstNameTextField.text!
         CheckoutCart.chekOutData.lastName = lastNameTextField.text!
         CheckoutCart.chekOutData.streetAddress = addressTextField.text!
@@ -44,10 +46,12 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
-        shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod)"
+        shippingOptionsLabel.text = "1. Shipping Options (\(CheckoutCart.chekOutData.items) items)"
+        shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
+        /*shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod)"
         totalItemsLabel.text = "Total Items: \(CheckoutCart.chekOutData.items)"
         totalPriceLabel.text = "Total Price: \(CheckoutCart.chekOutData.price)"
-        deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date)"
+        deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date)"*/
     }
     
     override func didReceiveMemoryWarning() {
@@ -91,16 +95,20 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*if segue.identifier == "shipping3"
+        if segue.identifier == "shipping3"
         {
             
-            CheckoutCart.chekOutData.firstName = firstNameTextField.text!
-            CheckoutCart.chekOutData.lastName = lastNameTextField.text!
-            CheckoutCart.chekOutData.streetAddress = addressTextField.text!
-            CheckoutCart.chekOutData.city = cityTextField.text!
-            CheckoutCart.chekOutData.state = stateTextField.text!
-            CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
+         CheckoutCart.chekOutData.firstName = firstNameTextField.text!
+         CheckoutCart.chekOutData.lastName = lastNameTextField.text!
+         CheckoutCart.chekOutData.streetAddress = addressTextField.text!
+         CheckoutCart.chekOutData.city = cityTextField.text!
+         CheckoutCart.chekOutData.state = stateTextField.text!
+         CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
+         CheckoutCart.chekOutData.billingStreerAddress = addressTextField.text!
+         CheckoutCart.chekOutData.billingCity = cityTextField.text!
+         CheckoutCart.chekOutData.billingState = stateTextField.text!
+         CheckoutCart.chekOutData.billingZipCode = zipCodeTextField.text!
             
-        }*/
+        }
     }
 }

@@ -20,20 +20,7 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     @IBOutlet weak var dateOfDeliveryLabel: UILabel!
     @IBOutlet weak var shippingMethodPickerView: UIPickerView!
     @IBOutlet weak var priceView: UIView!
-    
-    @IBAction func continueButton(_ sender: UIButton) {
-        var numberOfItems = 0
-        
-        for item in CartData.sharedInstance
-        {
-            numberOfItems += item.quantity
-        }
-        
-        CheckoutCart.chekOutData.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
-        CheckoutCart.chekOutData.items = numberOfItems
-        CheckoutCart.chekOutData.price = totalLabel.text!
-        CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text!
-    }
+    @IBOutlet weak var totalTabBarItem: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +112,7 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     func shippingDateandPrice(lag:Int, price:Double) -> String
     {
         totalLabel.text = "$\(Double(CartData.totalPrice) + price)"
+        totalTabBarItem.setItem(total: totalLabel.text!)
         
         /*code adopted from https://stackoverflow.com/questions/39513258/get-current-date-in-swift-3 */
         let date = Date()
@@ -134,12 +122,12 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return "\(components.month!)/\(components.day! + lag)/\(components.year!)"
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*if segue.identifier == "shipping2"
+        if segue.identifier == "shipping2"
         {
             var numberOfItems = 0
             
@@ -150,9 +138,23 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             
             CheckoutCart.chekOutData.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
             CheckoutCart.chekOutData.items = numberOfItems
-            CheckoutCart.chekOutData.price = totalLabel.text
-            CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text
-        }*/
+            CheckoutCart.chekOutData.price = totalLabel.text!
+            CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text!
+        }
      
-    }*/
+    }
+}
+
+extension UIBarButtonItem
+{
+    func setItem(total:String)
+    {
+        let attr = [NSFontAttributeName:UIFont.systemFont(ofSize: 19, weight: UIFontWeightBold), NSForegroundColorAttributeName:UIColor.black]
+        
+        self.title = "Total: \(total)"
+        
+        self.isEnabled = false
+        self.setTitleTextAttributes(attr, for: UIControlState.normal)
+
+    }
 }

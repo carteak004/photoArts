@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomDelegate {
 
     //var totalPrice = 0
     
@@ -61,14 +61,16 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.quantityStepper.minimumValue = Double(cartItem.quantity) - 1.0
         cell.quantityStepper.maximumValue = 10.0 - Double(cartItem.quantity)
         
-       // cell.delegate = self
+        cell.delegate = self
         
         return cell
     }
     
-    /*func changeQuantity(cell: CartTableViewCell) {
-        let row = cell.
-    }*/
+    //MARK: - Function to use stepper in the cell
+    func changeQuantity(cell: CartTableViewCell, step: Double) {
+        cell.quantityLabel.text = "changed"
+        cartTableView.reloadData()
+    }
     
     /*swipe left to delete feature. adopted from https://www.hackingwithswift.com/example-code/uikit/how-to-swipe-to-delete-uitableviewcells */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)

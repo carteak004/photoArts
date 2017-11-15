@@ -21,7 +21,7 @@ class PaymentViewController: UIViewController {
             CheckoutCart.chekOutData.billingZipCode = CheckoutCart.chekOutData.zipCode
         }
         else{
-            performSegue(withIdentifier: "segModal", sender: self)
+            performSegue(withIdentifier: "modifyBilling", sender: self)
             print("Switch is OFF")
         }
     }
