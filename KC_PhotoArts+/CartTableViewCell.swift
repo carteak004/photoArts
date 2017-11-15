@@ -18,8 +18,11 @@ class CartTableViewCell: UITableViewCell {
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var quantityStepper: UIStepper!
     
+    var delegate:CustomDelegate?
     
-    
+    @IBAction func QuantityChanged(_ sender: UIStepper) {
+        //delegate?.changeQuantity(cell: self, indexPath: , step: sender.value )
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,4 +35,9 @@ class CartTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+protocol CustomDelegate
+{
+    func changeQuantity(cell:CartTableViewCell, indexPath:IndexPath, step:Double)
 }
