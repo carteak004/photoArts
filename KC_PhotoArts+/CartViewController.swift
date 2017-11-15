@@ -17,6 +17,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var checkOutButtonLabel: UIButton!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var quantityStepper: UIStepper!
     
     
     
@@ -56,6 +57,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.priceLabel.text = "Price: $\(cartItem.itemPrice!).00"
         cell.quantityLabel.text = "Quantity: \(cartItem.quantity!)"
         
+        cell.quantityStepper.value = Double(cartItem.quantity)
+        cell.quantityStepper.minimumValue = Double(cartItem.quantity) - 1.0
+        cell.quantityStepper.maximumValue = 10.0 - Double(cartItem.quantity)
+        
+        
         return cell
     }
     
@@ -70,6 +76,20 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         checkOutViewUpdate()
         //print(CartData.sharedInstance.count)
     }
+    
+    @IBAction func quantityChangedinCell(_ sender: UIStepper) {
+        if let indexPath = self.cartTableView.indexPathForSelectedRow
+        {
+            CartData.sharedInstance[indexPath.row].quantity = Int(sender.value)
+            
+            let cell = cartTableView.dequeueReusableCell(withIdentifier: "CELL", for: indexPath) as! CartTableViewCell
+            
+            cell.quantityLabel.text = "Quantity: \(CartData.sharedInstance[indexPath.row].quantity!)"
+            
+            print("Quantity: \(CartData.sharedInstance[indexPath.row].quantity!)")
+        }
+    }
+    
     
     // MARK - User defined functions
     

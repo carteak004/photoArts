@@ -31,8 +31,8 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         CheckoutCart.chekOutData.shippingMethod = shippingMethod[shippingMethodPickerView.selectedRow(inComponent: 0)]
         CheckoutCart.chekOutData.items = numberOfItems
-        CheckoutCart.chekOutData.price = totalLabel.text
-        CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text
+        CheckoutCart.chekOutData.price = totalLabel.text!
+        CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text!
     }
     
     override func viewDidLoad() {
@@ -85,6 +85,9 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return label
     }
     
+    // MARK - Unwind Segue
+    @IBAction func editCheckout (_ segue:UIStoryboardSegue)
+    {}
     
     // MARK - User defined functions
     
@@ -131,7 +134,7 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return "\(components.month!)/\(components.day! + lag)/\(components.year!)"
     }
     
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -151,6 +154,5 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             CheckoutCart.chekOutData.date = dateOfDeliveryLabel.text
         }*/
      
-    }
-
+    }*/
 }

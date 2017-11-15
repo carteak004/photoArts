@@ -31,6 +31,10 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         CheckoutCart.chekOutData.city = cityTextField.text!
         CheckoutCart.chekOutData.state = stateTextField.text!
         CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
+        CheckoutCart.chekOutData.billingStreerAddress = addressTextField.text!
+        CheckoutCart.chekOutData.billingCity = cityTextField.text!
+        CheckoutCart.chekOutData.billingState = stateTextField.text!
+        CheckoutCart.chekOutData.billingZipCode = zipCodeTextField.text!
         
     }
     override func viewDidLoad() {
@@ -40,10 +44,10 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
 
-        shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod!)"
-        totalItemsLabel.text = "Total Items: \(CheckoutCart.chekOutData.items!)"
-        totalPriceLabel.text = "Total Price: \(CheckoutCart.chekOutData.price!)"
-        deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date!)"
+        shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod)"
+        totalItemsLabel.text = "Total Items: \(CheckoutCart.chekOutData.items)"
+        totalPriceLabel.text = "Total Price: \(CheckoutCart.chekOutData.price)"
+        deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,7 +83,9 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
 
-    
+    // MARK - Unwind Segue
+    @IBAction func editShippingAddress (_ segue:UIStoryboardSegue)
+    {}
     
     // MARK: - Navigation
 

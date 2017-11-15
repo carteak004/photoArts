@@ -23,6 +23,7 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var itemPrice:Int!
     var itemTotal:Int!
 
+    @IBOutlet weak var viewForImage: UIView!
     @IBOutlet weak var largeImageView: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var frameLabel: UILabel!
@@ -96,11 +97,13 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             itemPrice = price[0][sizeRow]
             itemTotal = itemPrice*quantity
             priceLabel.text = "$\(itemTotal!).00"
+            
         }
         else
         {
             itemPrice = price[1][sizeRow]
             itemTotal = itemPrice*quantity
+            
 
             if itemPrice == 0
             {
@@ -116,6 +119,32 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             {
                 priceLabel.text = "$\(itemTotal!).00"
             }
+        }
+        
+        //update color of photo background
+        
+        switch frameRow {
+        case 0:
+            viewForImage.backgroundColor = UIColor.white
+            break
+        case 1:
+            viewForImage.backgroundColor = UIColor(red:0.22, green:0.22, blue:0.22, alpha:1.0)
+            break
+        case 2:
+            viewForImage.backgroundColor = UIColor(red:0.96, green:0.94, blue:0.94, alpha:1.0)
+            break
+        case 3:
+            viewForImage.backgroundColor = UIColor(red:0.73, green:0.73, blue:0.75, alpha:1.0)
+            break
+        case 4:
+            viewForImage.backgroundColor = UIColor(red:0.67, green:0.59, blue:0.31, alpha:1.0)
+            break
+        case 5:
+            viewForImage.backgroundColor = UIColor(red:0.59, green:0.58, blue:0.57, alpha:1.0)
+            break
+        default:
+            viewForImage.backgroundColor = UIColor.white
+            break
         }
         
     }

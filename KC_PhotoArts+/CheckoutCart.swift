@@ -12,21 +12,25 @@ class CheckoutCart: NSObject {
 
     static var chekOutData = CheckoutCart()
     
-    var items:Int!
-    var date:String!
-    var shippingMethod:String!
-    var price:String!
-    var firstName:String!
-    var lastName:String!
-    var phoneNumber:String!
-    var emailId:String!
-    var streetAddress:String!
-    var city:String!
-    var state:String!
-    var zipCode:String!
-    var NameOnCard:String!
-    var cardNumber:String!
-    var expiryDate:String!
-    var securityCode:String!
+    var items = 0
+    var date = ""
+    var shippingMethod = ""
+    var price = ""
+    var firstName = ""
+    var lastName = ""
+    var phoneNumber = ""
+    var emailId = ""
+    var streetAddress = ""
+    var city = ""
+    var state = ""
+    var zipCode = ""
+    var NameOnCard = ""
+    var cardNumber = ""
+    var expiryDate = ""
+    var securityCode = ""
+    var billingStreerAddress = ""
+    var billingCity = ""
+    var billingState = ""
+    var billingZipCode = ""
     
 }
