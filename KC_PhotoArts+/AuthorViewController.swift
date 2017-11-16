@@ -1,25 +1,25 @@
 //
-//  BillingAddressViewController.swift
+//  AuthorViewController.swift
 //  KC_PhotoArts+
 //
-//  Created by ta on 11/14/17.
+//  Created by Kartheek chintalapati on 16/11/17.
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
 import UIKit
 
-class BillingAddressViewController: UIViewController {
+class AuthorViewController: UIViewController {
 
-    @IBOutlet weak var addressTextField: UITextField!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var stateTextField: UITextField!
-    @IBOutlet weak var zipCodeTextField: UITextField!
-    
-    
+    @IBOutlet weak var webView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let path = Bundle.main.path(forResource: "/html/index", ofType: "html")!
+        let data:NSData = NSData(contentsOfFile:path)!
+        let html = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)
+        
+        // Load the webView outlet with the content of the index.html file
+        webView.loadHTMLString(html! as String, baseURL: Bundle.main.bundleURL)
     }
 
     override func didReceiveMemoryWarning() {

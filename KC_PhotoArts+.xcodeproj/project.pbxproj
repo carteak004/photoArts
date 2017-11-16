@@ -15,6 +15,8 @@
 		0D19611C1F9F83AA00261FD5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D19611A1F9F83AA00261FD5 /* LaunchScreen.storyboard */; };
 		0D1961271F9F83AB00261FD5 /* KC_PhotoArts_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1961261F9F83AB00261FD5 /* KC_PhotoArts_Tests.swift */; };
 		0D1961321F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1961311F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift */; };
+		0D1FE9351FBD9CFE003A7913 /* html in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FE9341FBD9CFE003A7913 /* html */; };
+		0D1FE9371FBD9E10003A7913 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FE9361FBD9E10003A7913 /* AuthorViewController.swift */; };
 		0D60FDE81FB3C49900BE1435 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */; };
 		0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35B1FA5A2B100167B3A /* ArtData.swift */; };
 		0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35D1FA6764000167B3A /* CVCell.swift */; };
@@ -27,7 +29,6 @@
 		132318D01FB0FACE002A385D /* CartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132318CF1FB0FACD002A385D /* CartData.swift */; };
 		132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132318D41FB0FF1C002A385D /* CartViewController.swift */; };
 		138255611FB519D500A44F50 /* ShippingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138255601FB519D500A44F50 /* ShippingAddressViewController.swift */; };
-		13FA7E011FBBAA7600051D9B /* BillingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13FA7E001FBBAA7600051D9B /* BillingAddressViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,8 @@
 		0D19612D1F9F83AB00261FD5 /* KC_PhotoArts+UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "KC_PhotoArts+UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D1961311F9F83AB00261FD5 /* KC_PhotoArts_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KC_PhotoArts_UITests.swift; sourceTree = "<group>"; };
 		0D1961331F9F83AB00261FD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D1FE9341FBD9CFE003A7913 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
+		0D1FE9361FBD9E10003A7913 /* AuthorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewController.swift; sourceTree = "<group>"; };
 		0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		0D8CA35B1FA5A2B100167B3A /* ArtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtData.swift; sourceTree = "<group>"; };
 		0D8CA35D1FA6764000167B3A /* CVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCell.swift; sourceTree = "<group>"; };
@@ -74,7 +77,6 @@
 		132318CF1FB0FACD002A385D /* CartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartData.swift; sourceTree = "<group>"; };
 		132318D41FB0FF1C002A385D /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		138255601FB519D500A44F50 /* ShippingAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAddressViewController.swift; sourceTree = "<group>"; };
-		13FA7E001FBBAA7600051D9B /* BillingAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillingAddressViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				0D1961181F9F83AA00261FD5 /* Assets.xcassets */,
 				0D19610E1F9F83AA00261FD5 /* AppDelegate.swift */,
 				0D19611D1F9F83AB00261FD5 /* Info.plist */,
+				0D1FE9341FBD9CFE003A7913 /* html */,
 				0D1961151F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld */,
 			);
 			path = "KC_PhotoArts+";
@@ -184,9 +187,9 @@
 				0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */,
 				138255601FB519D500A44F50 /* ShippingAddressViewController.swift */,
 				0D9EF04B1FBAF82100FC515A /* PaymentViewController.swift */,
-				13FA7E001FBBAA7600051D9B /* BillingAddressViewController.swift */,
 				13007C491FBCD2D3003DA99C /* ReviewOrderViewController.swift */,
 				13007C4B1FBCD3A6003DA99C /* ReviewOrderCVCell.swift */,
+				0D1FE9361FBD9E10003A7913 /* AuthorViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D19611C1F9F83AA00261FD5 /* LaunchScreen.storyboard in Resources */,
+				0D1FE9351FBD9CFE003A7913 /* html in Resources */,
 				0D1961191F9F83AA00261FD5 /* Assets.xcassets in Resources */,
 				0D1961141F9F83AA00261FD5 /* Main.storyboard in Resources */,
 			);
@@ -331,11 +335,11 @@
 				0D1961111F9F83AA00261FD5 /* ViewController.swift in Sources */,
 				0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */,
 				0DB8301F1FBB5C1E006E0880 /* CheckoutCart.swift in Sources */,
-				13FA7E011FBBAA7600051D9B /* BillingAddressViewController.swift in Sources */,
 				0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */,
 				0DCB32191FB13DCB00CDAB36 /* CartTableViewCell.swift in Sources */,
 				0D19610F1F9F83AA00261FD5 /* AppDelegate.swift in Sources */,
 				132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */,
+				0D1FE9371FBD9E10003A7913 /* AuthorViewController.swift in Sources */,
 				132318D01FB0FACE002A385D /* CartData.swift in Sources */,
 				13007C4C1FBCD3A6003DA99C /* ReviewOrderCVCell.swift in Sources */,
 				13007C4A1FBCD2D3003DA99C /* ReviewOrderViewController.swift in Sources */,

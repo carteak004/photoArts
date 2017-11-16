@@ -26,6 +26,8 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
     
+    @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
+    
     @IBAction func continueButton(_ sender: UIBarButtonItem) {
         CheckoutCart.chekOutData.firstName = firstNameTextField.text!
         CheckoutCart.chekOutData.lastName = lastNameTextField.text!
@@ -48,10 +50,23 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
 
         shippingOptionsLabel.text = "1. Shipping Options (\(CheckoutCart.chekOutData.items) items)"
         shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
+        totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
         /*shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod)"
         totalItemsLabel.text = "Total Items: \(CheckoutCart.chekOutData.items)"
         totalPriceLabel.text = "Total Price: \(CheckoutCart.chekOutData.price)"
         deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date)"*/
+        
+        firstNameTextField.text = CheckoutCart.chekOutData.firstName
+        lastNameTextField.text = CheckoutCart.chekOutData.lastName
+        addressTextField.text = CheckoutCart.chekOutData.streetAddress
+        cityTextField.text = CheckoutCart.chekOutData.city
+        stateTextField.text = CheckoutCart.chekOutData.state
+        zipCodeTextField.text = CheckoutCart.chekOutData.zipCode
+        addressTextField.text = CheckoutCart.chekOutData.billingStreerAddress
+        cityTextField.text = CheckoutCart.chekOutData.billingCity
+        stateTextField.text = CheckoutCart.chekOutData.billingState
+        zipCodeTextField.text = CheckoutCart.chekOutData.billingZipCode
+
     }
     
     override func didReceiveMemoryWarning() {

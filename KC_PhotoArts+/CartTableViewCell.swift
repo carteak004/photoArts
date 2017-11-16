@@ -21,7 +21,7 @@ class CartTableViewCell: UITableViewCell {
     var delegate:CustomDelegate?
     
     @IBAction func QuantityChanged(_ sender: UIStepper) {
-        delegate?.changeQuantity(cell: self, step: sender.value)
+        quantityLabel.text = sender.value.description
     }
     
     override func awakeFromNib() {

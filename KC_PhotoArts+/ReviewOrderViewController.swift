@@ -12,10 +12,19 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
 
     @IBOutlet weak var shippingOptionsLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var shippingOptionsDescriptionLabel: UILabel!
+    @IBOutlet weak var shippingAddressLabel: UILabel!
+    @IBOutlet weak var cardNumberLabel: UILabel!
+    @IBOutlet weak var expiryLabel: UILabel!
+    @IBOutlet weak var securityCodeLabel: UILabel!
+    @IBOutlet weak var nameOnCardLabel: UILabel!
+    @IBOutlet weak var billingAddressLabel: UILabel!
+    @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loadLabels() //function to load labels
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +54,29 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         return cell
     }
 
+    // MARK: - User defined functions
+    //function to load labels
+    func loadLabels()
+    {
+        //Shipping Options
+        shippingOptionsLabel.text = "1. Shipping Options (\(CheckoutCart.chekOutData.items) items)"
+        shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
+        
+        //Shipping Address
+        shippingAddressLabel.text = "\(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName) \r\n \(CheckoutCart.chekOutData.streetAddress) \r\n \(CheckoutCart.chekOutData.city) \r\n \(CheckoutCart.chekOutData.state) - \(CheckoutCart.chekOutData.zipCode)"
+        
+        //Payment Method
+        nameOnCardLabel.text = CheckoutCart.chekOutData.NameOnCard
+        cardNumberLabel.text = CheckoutCart.chekOutData.cardNumber
+        expiryLabel.text = CheckoutCart.chekOutData.expiryDate
+        securityCodeLabel.text = CheckoutCart.chekOutData.securityCode
+        
+        //Billing Address
+        billingAddressLabel.text = "\(CheckoutCart.chekOutData.billingStreerAddress) \r\n \(CheckoutCart.chekOutData.billingCity) \r\n \(CheckoutCart.chekOutData.billingCity) - \(CheckoutCart.chekOutData.billingZipCode)"
+        
+        //Tab Bar
+        totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
+    }
     /*
     // MARK: - Navigation
 
