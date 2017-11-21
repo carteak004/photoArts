@@ -10,6 +10,8 @@ import UIKit
 
 class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
+    let validationManager = ValidationManager()
+    
     @IBOutlet weak var shippingTypeLabel: UILabel!
     @IBOutlet weak var totalItemsLabel: UILabel!
     @IBOutlet weak var deliveryDateLabel: UILabel!
@@ -100,6 +102,31 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Delegate function to hide keyboard when tapped outside the field
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField
+        {
+        case firstNameTextField:
+            print(validationManager.validateName(name: firstNameTextField.text!))
+            lastNameTextField.becomeFirstResponder()
+        case lastNameTextField:
+            phoneNumberTextField.becomeFirstResponder()
+        case phoneNumberTextField:
+            emailTextField.becomeFirstResponder()
+        case emailTextField:
+            addressTextField.becomeFirstResponder()
+        case addressTextField:
+            cityTextField.becomeFirstResponder()
+        case cityTextField:
+            stateTextField.becomeFirstResponder()
+        case stateTextField:
+            zipCodeTextField.becomeFirstResponder()
+        default:
+            zipCodeTextField.resignFirstResponder()
+        
+        }
+        return true
     }
 
     // MARK - Unwind Segue
