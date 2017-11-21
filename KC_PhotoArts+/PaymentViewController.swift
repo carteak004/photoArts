@@ -35,12 +35,12 @@ class PaymentViewController: UIViewController {
     @IBAction func addressToggleSwitch(_ sender: UISwitch) {
         if addressSwitch.isOn
         {
-            print("Switch is ON")
+            //print("Switch is ON")
             valueAssignments(hide: true, street: CheckoutCart.chekOutData.streetAddress, city: CheckoutCart.chekOutData.city, state: CheckoutCart.chekOutData.state, zip: CheckoutCart.chekOutData.zipCode)
         }
         else{
             //performSegue(withIdentifier: "modifyBilling", sender: self)
-            print("Switch is OFF")
+            //print("Switch is OFF")
             valueAssignments(hide: false, street: CheckoutCart.chekOutData.billingStreerAddress, city: CheckoutCart.chekOutData.billingCity, state: CheckoutCart.chekOutData.billingState, zip: CheckoutCart.chekOutData.billingZipCode)
         }
     }

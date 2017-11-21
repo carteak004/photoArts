@@ -9,6 +9,8 @@
 import UIKit
 
 class CartTableViewCell: UITableViewCell {
+    
+    var quantity = 0
 
     @IBOutlet weak var artImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -18,10 +20,12 @@ class CartTableViewCell: UITableViewCell {
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var quantityStepper: UIStepper!
     
-    var delegate:CustomDelegate?
     
     @IBAction func QuantityChanged(_ sender: UIStepper) {
-        quantityLabel.text = sender.value.description
+        quantity = Int(sender.value)
+        
+        quantityLabel.text = "Quantity: \(quantity)"
+        
     }
     
     override func awakeFromNib() {
@@ -35,9 +39,4 @@ class CartTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-}
-
-protocol CustomDelegate
-{
-    func changeQuantity(cell:CartTableViewCell, step:Double)
 }

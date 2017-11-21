@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomDelegate {
+class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     //var totalPrice = 0
     
@@ -48,7 +48,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CELL", for: indexPath) as! CartTableViewCell
         
-        let cartItem = CartData.sharedInstance[indexPath.row]
+        let cartItem =  CartData.sharedInstance[indexPath.row]
         
         cell.artImageView.image = cartItem.itemImageURL.loadImage()
         cell.nameLabel.text = cartItem.itemName
@@ -58,10 +58,6 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.quantityLabel.text = "Quantity: \(cartItem.quantity!)"
         
         cell.quantityStepper.value = Double(cartItem.quantity)
-        cell.quantityStepper.minimumValue = Double(cartItem.quantity) - 1.0
-        cell.quantityStepper.maximumValue = 10.0 - Double(cartItem.quantity)
-        
-        cell.delegate = self
         
         return cell
     }
@@ -82,19 +78,6 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         checkOutViewUpdate()
         //print(CartData.sharedInstance.count)
-    }
-    
-    @IBAction func quantityChangedinCell(_ sender: UIStepper) {
-        if let indexPath = self.cartTableView.indexPathForSelectedRow
-        {
-            CartData.sharedInstance[indexPath.row].quantity = Int(sender.value)
-            
-            let cell = cartTableView.dequeueReusableCell(withIdentifier: "CELL", for: indexPath) as! CartTableViewCell
-            
-            cell.quantityLabel.text = "Quantity: \(CartData.sharedInstance[indexPath.row].quantity!)"
-            
-            print("Quantity: \(CartData.sharedInstance[indexPath.row].quantity!)")
-        }
     }
     
     

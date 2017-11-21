@@ -10,7 +10,12 @@ import UIKit
 
 class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
-    let validationManager = ValidationManager()
+    // regex variables
+    let regexEmail = "[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}"
+    let regexPhone = "^[0-9]{6,15}$"
+    let regexName = "^[a-zA-Z]+$"
+    
+    let validateFlag = true
     
     @IBOutlet weak var shippingTypeLabel: UILabel!
     @IBOutlet weak var totalItemsLabel: UILabel!
@@ -31,18 +36,39 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
     
     @IBAction func continueButton(_ sender: UIBarButtonItem) {
-        CheckoutCart.chekOutData.firstName = firstNameTextField.text!
-        CheckoutCart.chekOutData.lastName = lastNameTextField.text!
-        CheckoutCart.chekOutData.streetAddress = addressTextField.text!
-        CheckoutCart.chekOutData.city = cityTextField.text!
-        CheckoutCart.chekOutData.state = stateTextField.text!
-        CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
-        CheckoutCart.chekOutData.billingStreerAddress = addressTextField.text!
-        CheckoutCart.chekOutData.billingCity = cityTextField.text!
-        CheckoutCart.chekOutData.billingState = stateTextField.text!
-        CheckoutCart.chekOutData.billingZipCode = zipCodeTextField.text!
-        
+        let vali = validateEmail(email: emailTextField.text!)
+        print(vali)
+        if vali == "error"
+        {
+        performSegue(withIdentifier: "shipping3", sender: self)
+        }
     }
+    
+    
+    
+    func validateEmail(email: String) -> Bool
+    {
+        //var validationError = "error"
+        
+        if email == ""
+        {
+            validationError = "Please enter your e-mail address"
+        }
+        else{
+            let emailTest = NSPredicate(format: "SELF MATCHES %@", regexEmail)
+            let matchEmailId = emailTest.evaluate(with: email)
+            if(!matchEmailId)
+            {
+                validationError = "Please enter a valid Email Address"
+            }
+        }
+        
+        return true
+    }
+
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -83,7 +109,7 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0
             {
-                self.view.frame.origin.y -= keyboardSize.height-30
+                self.view.frame.origin.y -= keyboardSize.height-50
             }
         }
     }
@@ -108,7 +134,6 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         switch textField
         {
         case firstNameTextField:
-            print(validationManager.validateName(name: firstNameTextField.text!))
             lastNameTextField.becomeFirstResponder()
         case lastNameTextField:
             phoneNumberTextField.becomeFirstResponder()
