@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17B48" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rX0-HB-YFm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rX0-HB-YFm">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -279,7 +279,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="173"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BDt-C1-tTK" id="5C3-Rx-qiW" customClass="CartTableViewCell" customModule="KC_PhotoArts_" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="172.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="173"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gPs-Sk-hZK">
@@ -825,17 +825,25 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addressLabel" destination="Siw-0l-41Q" id="r0m-lE-5L5"/>
                         <outlet property="addressTextField" destination="eVc-Xh-ovT" id="8aU-e2-Pjl"/>
+                        <outlet property="cityLabel" destination="vzZ-gC-KeP" id="a7O-dP-8fG"/>
                         <outlet property="cityTextField" destination="Z6f-nj-brt" id="VaD-SS-F1L"/>
+                        <outlet property="emailLabel" destination="XlG-QF-Hez" id="yRv-KB-pS0"/>
                         <outlet property="emailTextField" destination="WlM-iK-LVh" id="C50-FM-Kjb"/>
+                        <outlet property="firstNameLabel" destination="HUj-Rv-ndD" id="DfX-lE-xTQ"/>
                         <outlet property="firstNameTextField" destination="geX-Ww-p05" id="d5E-3C-LhU"/>
+                        <outlet property="lastNameLabel" destination="UGj-ck-VOc" id="1il-2N-4Y6"/>
                         <outlet property="lastNameTextField" destination="8Pb-kR-m78" id="qvY-Jg-Enc"/>
+                        <outlet property="phoneNumberLabel" destination="wqO-dQ-LOb" id="1YR-zZ-R1G"/>
                         <outlet property="phoneNumberTextField" destination="gcc-CQ-kmS" id="Wec-j8-lvi"/>
                         <outlet property="shippingOptionsDescriptionLabel" destination="nYz-1q-hAD" id="u4q-SW-u5t"/>
                         <outlet property="shippingOptionsLabel" destination="0Bh-bo-yGl" id="cUf-EV-Caz"/>
+                        <outlet property="stateLabel" destination="G86-At-jyh" id="jOZ-NO-ckF"/>
                         <outlet property="stateTextField" destination="aFW-1o-bz6" id="kDS-OC-WGV"/>
                         <outlet property="totalBarButtonItem" destination="B4c-lc-MVc" id="6P0-Xo-mWH"/>
                         <outlet property="zipCodeTextField" destination="G2l-hz-5GQ" id="5Qx-IM-t3c"/>
+                        <outlet property="zipcodeLabel" destination="s0k-rc-UUL" id="4q7-RD-Djq"/>
                         <segue destination="Wgv-yZ-hDV" kind="presentation" identifier="shipping3" id="s6r-Y0-lTj"/>
                     </connections>
                 </viewController>

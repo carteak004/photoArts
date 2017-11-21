@@ -33,12 +33,20 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
     
+    @IBOutlet weak var firstNameLabel: UILabel!
+    @IBOutlet weak var lastNameLabel: UILabel!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var zipcodeLabel: UILabel!
+    
+    
     @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
     
     @IBAction func continueButton(_ sender: UIBarButtonItem) {
-        let vali = validateEmail(email: emailTextField.text!)
-        print(vali)
-        if vali == "error"
+        if validateEmail(email: emailTextField.text!) || validateFirstName(firstName: firstNameTextField.text!) || validateLastName(lastName: lastNameTextField.text!) || validatePhoneNumber(phone: phoneNumberTextField.text!)
         {
         performSegue(withIdentifier: "shipping3", sender: self)
         }
@@ -48,26 +56,92 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
     func validateEmail(email: String) -> Bool
     {
-        //var validationError = "error"
-        
         if email == ""
         {
-            validationError = "Please enter your e-mail address"
+            emailLabel.text =  "❗️Please enter your e-mail address"
+            return !validateFlag
         }
         else{
             let emailTest = NSPredicate(format: "SELF MATCHES %@", regexEmail)
             let matchEmailId = emailTest.evaluate(with: email)
             if(!matchEmailId)
             {
-                validationError = "Please enter a valid Email Address"
+                emailLabel.text = "❗️Please enter a valid Email Address"
+                return !validateFlag
+            }
+            else
+            {
+                emailLabel.text = "E-Mail"
+                return validateFlag
             }
         }
-        
-        return true
     }
 
+    func validatePhoneNumber(phone: String) -> Bool
+    {
+        if phone == ""
+        {
+            phoneNumberLabel.text = "❗️Please enter a Phone Number"
+            return !validateFlag
+        }
+        else{
+            let phoneTest = NSPredicate(format: "SELF MATCHES %@", regexPhone)
+            let matchPhone = phoneTest.evaluate(with: phone)
+            if(!matchPhone)
+            {
+                phoneNumberLabel.text = "❗️Please enter a valid Phone Number"
+                return !validateFlag
+            }
+            else{
+                phoneNumberLabel.text = "Phone Number"
+                return validateFlag
+            }
+        }
+    }
     
+    func validateFirstName(firstName: String) -> Bool
+    {
+        if firstName == ""
+        {
+            firstNameLabel.text = "❗️Please enter your First Name"
+            return !validateFlag
+        }
+        else{
+            let nameTest = NSPredicate(format: "SELF MATCHES %@", regexName)
+            let matchNameId = nameTest.evaluate(with: firstName)
+            if(!matchNameId)
+            {
+                firstNameLabel.text = "❗️Please enter a valid First Name"
+                return !validateFlag
+            }
+            else{
+                firstNameLabel.text = "First Name"
+                return validateFlag
+            }
+        }
+    }
     
+    func validateLastName(lastName: String) -> Bool
+    {
+        if lastName == ""
+        {
+            lastNameLabel.text = "❗️Please enter your Last Name"
+            return !validateFlag
+        }
+        else{
+            let nameTest = NSPredicate(format: "SELF MATCHES %@", regexName)
+            let matchNameId = nameTest.evaluate(with: lastName)
+            if(!matchNameId)
+            {
+                lastNameLabel.text = "❗️Please enter a valid Last Name"
+                return !validateFlag
+            }
+            else{
+                lastNameLabel.text = "Last Name"
+                return validateFlag
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,10 +153,6 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         shippingOptionsLabel.text = "1. Shipping Options (\(CheckoutCart.chekOutData.items) items)"
         shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
         totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
-        /*shippingTypeLabel.text = "Shipping Type: \(CheckoutCart.chekOutData.shippingMethod)"
-        totalItemsLabel.text = "Total Items: \(CheckoutCart.chekOutData.items)"
-        totalPriceLabel.text = "Total Price: \(CheckoutCart.chekOutData.price)"
-        deliveryDateLabel.text = "Est. Delivery Date: \(CheckoutCart.chekOutData.date)"*/
         
         firstNameTextField.text = CheckoutCart.chekOutData.firstName
         lastNameTextField.text = CheckoutCart.chekOutData.lastName
@@ -94,7 +164,6 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         cityTextField.text = CheckoutCart.chekOutData.billingCity
         stateTextField.text = CheckoutCart.chekOutData.billingState
         zipCodeTextField.text = CheckoutCart.chekOutData.billingZipCode
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -119,7 +188,7 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y != 0
             {
-                self.view.frame.origin.y += keyboardSize.height-30
+                self.view.frame.origin.y += keyboardSize.height-50
             }
         }
     }
