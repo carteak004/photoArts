@@ -18,7 +18,6 @@
 		0D1FE9351FBD9CFE003A7913 /* html in Resources */ = {isa = PBXBuildFile; fileRef = 0D1FE9341FBD9CFE003A7913 /* html */; };
 		0D1FE9371FBD9E10003A7913 /* AuthorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D1FE9361FBD9E10003A7913 /* AuthorViewController.swift */; };
 		0D60FDE81FB3C49900BE1435 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */; };
-		0D62E2A61FC12B81005C603D /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D62E2A51FC12B81005C603D /* ValidationManager.swift */; };
 		0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35B1FA5A2B100167B3A /* ArtData.swift */; };
 		0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35D1FA6764000167B3A /* CVCell.swift */; };
 		0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */; };
@@ -67,7 +66,6 @@
 		0D1FE9341FBD9CFE003A7913 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; path = html; sourceTree = "<group>"; };
 		0D1FE9361FBD9E10003A7913 /* AuthorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorViewController.swift; sourceTree = "<group>"; };
 		0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
-		0D62E2A51FC12B81005C603D /* ValidationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
 		0D8CA35B1FA5A2B100167B3A /* ArtData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtData.swift; sourceTree = "<group>"; };
 		0D8CA35D1FA6764000167B3A /* CVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCell.swift; sourceTree = "<group>"; };
 		0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 			isa = PBXGroup;
 			children = (
 				0D1961101F9F83AA00261FD5 /* ViewController.swift */,
-				0D62E2A51FC12B81005C603D /* ValidationManager.swift */,
 				0D8CA35D1FA6764000167B3A /* CVCell.swift */,
 				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
 				132318D41FB0FF1C002A385D /* CartViewController.swift */,
@@ -350,7 +347,6 @@
 				0D1961171F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld in Sources */,
 				0D60FDE81FB3C49900BE1435 /* CheckoutViewController.swift in Sources */,
 				138255611FB519D500A44F50 /* ShippingAddressViewController.swift in Sources */,
-				0D62E2A61FC12B81005C603D /* ValidationManager.swift in Sources */,
 				0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
