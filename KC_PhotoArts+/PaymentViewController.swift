@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PaymentViewController: UIViewController {
+class PaymentViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var shippingOptionsLabel: UILabel!
     @IBOutlet weak var shippingOptionsDescriptionLabel: UILabel!
@@ -21,7 +21,18 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var expiryTextField: UITextField!
     @IBOutlet weak var securityCodeTextField: UITextField!
     
+    @IBOutlet weak var nameOnCardLabel: UILabel!
+    @IBOutlet weak var cardNumberLabel: UILabel!
+    @IBOutlet weak var expiryDateLabel: UILabel!
+    @IBOutlet weak var securityCodeLabel: UILabel!
+    
+    @IBOutlet weak var billingStreetLabel: UILabel!
+    @IBOutlet weak var billingCityLabel: UILabel!
+    @IBOutlet weak var billingStateLabel: UILabel!
+    @IBOutlet weak var billingZipLabel: UILabel!
+    
     @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var reviewOrderBarButtonItem: UIBarButtonItem!
     
     @IBOutlet weak var billingStreetAddressTextField: UITextField!
     @IBOutlet weak var billingCityTextField: UITextField!
@@ -45,10 +56,20 @@ class PaymentViewController: UIViewController {
         }
     }
     
+    @IBAction func reviewOrder(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "reviewOrder", sender: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        ValidationModel.validationObject.nameOnCardFlag = true
+        ValidationModel.validationObject.billingStreetFlag = true
+        ValidationModel.validationObject.billingCityFlag = true
+        ValidationModel.validationObject.billingStateFlag = true
+        ValidationModel.validationObject.billingZipFlag = true
+        validate()
+        
         //to move view up when tapped on keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -57,7 +78,7 @@ class PaymentViewController: UIViewController {
         //Load the outlets
         shippingOptionsLabel.text = "1. Shipping Options (\(CheckoutCart.chekOutData.items) items)"
         shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
-        shippingAddressLabel.text = "\(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName) \r\n \(CheckoutCart.chekOutData.streetAddress) \r\n \(CheckoutCart.chekOutData.city) \r\n \(CheckoutCart.chekOutData.state) - \(CheckoutCart.chekOutData.zipCode)"
+        shippingAddressLabel.text = "\(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName) \r\n\(CheckoutCart.chekOutData.streetAddress) \r\n\(CheckoutCart.chekOutData.city) \r\n\(CheckoutCart.chekOutData.state) - \(CheckoutCart.chekOutData.zipCode)"
         totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
         
         nameOnCardTextField.text = CheckoutCart.chekOutData.NameOnCard
@@ -67,6 +88,13 @@ class PaymentViewController: UIViewController {
         
         billingStreetAddressTextField.text = CheckoutCart.chekOutData.billingStreerAddress
         billingCityTextField.text =  CheckoutCart.chekOutData.billingCity
+        billingStateTextField.text = CheckoutCart.chekOutData.billingState
+        billingZipCodeTextField.text = CheckoutCart.chekOutData.billingZipCode
+        
+        nameOnCardTextField.text = "\(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName)"
+        cardNumberTextField.text = CheckoutCart.chekOutData.cardNumber
+        expiryTextField.text = CheckoutCart.chekOutData.expiryDate
+        securityCodeTextField.text = CheckoutCart.chekOutData.securityCode
         
         valueAssignments(hide: true, street: CheckoutCart.chekOutData.streetAddress, city: CheckoutCart.chekOutData.city, state: CheckoutCart.chekOutData.state, zip: CheckoutCart.chekOutData.zipCode)
     }
@@ -104,6 +132,72 @@ class PaymentViewController: UIViewController {
         view.endEditing(true)
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField
+        {
+        case nameOnCardTextField:
+            cardNumberTextField.becomeFirstResponder()
+            validate()
+        case cardNumberTextField:
+            expiryTextField.becomeFirstResponder()
+            validate()
+        case expiryTextField:
+            securityCodeTextField.becomeFirstResponder()
+            validate()
+        case securityCodeTextField:
+            securityCodeTextField.resignFirstResponder()
+            validate()
+        case billingStreetAddressTextField:
+            billingCityTextField.becomeFirstResponder()
+            validate()
+        case billingCityTextField:
+            billingStateTextField.becomeFirstResponder()
+            validate()
+        case billingStateTextField:
+            billingZipCodeTextField.becomeFirstResponder()
+            validate()
+        case billingZipCodeTextField:
+            billingZipCodeTextField.resignFirstResponder()
+            validate()
+        default:
+            securityCodeTextField.resignFirstResponder()
+            validate()
+        }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField
+        {
+        case nameOnCardTextField:
+            validateName(name: nameOnCardTextField.text!)
+            validate()
+        case cardNumberTextField:
+            validateCardNumber(cardNumber: cardNumberTextField.text!)
+            validate()
+        case expiryTextField:
+            validateExpiry(expiry: expiryTextField.text!)
+            validate()
+        case securityCodeTextField:
+            validateSecurityCode(cvv: securityCodeTextField.text!)
+            validate()
+        case billingStreetAddressTextField:
+            validateAddress(address: billingStreetAddressTextField.text!)
+            validate()
+        case billingCityTextField:
+            validateCity(city: billingCityTextField.text!)
+            validate()
+        case billingStateTextField:
+            validateState(state: billingStateTextField.text!)
+            validate()
+        case billingZipCodeTextField:
+            validateZip(zip: billingZipCodeTextField.text!)
+            validate()
+        default:
+            break
+        }
+
+    }
     
     // MARK: - User defined functions
     
@@ -123,6 +217,219 @@ class PaymentViewController: UIViewController {
         billingCityTextField.text = city
         billingStateTextField.text = state
         billingZipCodeTextField.text = zip
+        
+        validate()
+    }
+    
+    func validateName(name:String)
+    {
+        if name == ""
+        {
+            nameOnCardLabel.text = "❗️Please enter your Name"
+            nameOnCardLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.nameOnCardFlag = false
+        }
+        else{
+            nameOnCardLabel.text = "Name on the Card"
+            nameOnCardLabel.textColor = UIColor.black
+            //continueButtonLabel.isEnabled = true
+            ValidationModel.validationObject.nameOnCardFlag = true
+        }
+    }
+    
+    func validateCardNumber(cardNumber:String)
+    {
+        if cardNumber == ""
+        {
+            cardNumberLabel.text = "❗️Please enter a Card Number"
+            cardNumberLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.cardNumberFlag = false
+        }
+        else{
+            if cardNumber.characters.count > 16 || cardNumber.characters.count < 15
+            {
+                cardNumberLabel.text = "❗️Please enter a valid Card Number"
+                cardNumberLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.cardNumberFlag = false
+            }
+            else
+            {
+                cardNumberLabel.text = "Card Number"
+                cardNumberLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.cardNumberFlag = true
+            }
+        }
+    }
+    
+    func validateExpiry (expiry: String)
+    {
+        if expiry == ""
+        {
+            expiryDateLabel.text = "❗️Expiry required"
+            expiryDateLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.expiryFlag = false
+        }
+        else{
+            if expiry.characters.count != 6
+            {
+                expiryDateLabel.text = "❗️Invalid Expiry"
+                expiryDateLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.expiryFlag = false
+            }
+            else
+            {
+                expiryDateLabel.text = "Valid Thru"
+                expiryDateLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.expiryFlag = true
+            }
+        }
+    }
+    
+    func validateSecurityCode (cvv: String)
+    {
+        if cvv == ""
+        {
+            securityCodeLabel.text = "❗️CVV required"
+            securityCodeLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.securityCodeFlag = false
+        }
+        else{
+            if cvv.characters.count > 4 || cvv.characters.count < 3
+            {
+                securityCodeLabel.text = "❗️Invalid CVV"
+                securityCodeLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.securityCodeFlag = false
+            }
+            else
+            {
+                securityCodeLabel.text = "Security Code"
+                securityCodeLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.securityCodeFlag = true
+            }
+        }
+    }
+    
+    func validateAddress(address:String)
+    {
+        if address == ""
+        {
+            billingStreetLabel.text = "❗️Please enter an Address"
+            billingStreetLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.billingStreetFlag = false
+        }
+        else{
+            billingStreetLabel.text = "Address"
+            billingStreetLabel.textColor = UIColor.black
+            //continueButtonLabel.isEnabled = true
+            ValidationModel.validationObject.billingStreetFlag = true
+        }
+    }
+    
+    func validateCity(city:String)
+    {
+        if city == ""
+        {
+            billingCityLabel.text = "❗️City Required"
+            billingCityLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.billingCityFlag = false
+        }
+        else{
+            let cityTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexText)
+            let matchAddreess = cityTest.evaluate(with: city)
+            if(!matchAddreess)
+            {
+                billingCityLabel.text = "❗️Invalid City"
+                billingCityLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.billingCityFlag = false
+            }
+            else{
+                billingCityLabel.text = "City"
+                billingCityLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.billingCityFlag = true
+            }
+        }
+    }
+    
+    func validateState(state:String)
+    {
+        if state == ""
+        {
+            billingStateLabel.text = "❗️State"
+            billingStateLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.billingStateFlag = false
+        }
+        else{
+            let stateTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexState)
+            let matchAddreess = stateTest.evaluate(with: state)
+            if(!matchAddreess)
+            {
+                billingStateLabel.text = "❗️State"
+                billingStateLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.billingStateFlag = false
+            }
+            else{
+                billingStateLabel.text = "State"
+                billingStateLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.billingStateFlag = true
+            }
+        }
+    }
+    
+    func validateZip(zip:String)
+    {
+        if zip == ""
+        {
+            billingZipLabel.text = "❗️ZIP required"
+            billingZipLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.billingZipFlag = false
+        }
+        else{
+            let zipTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexZip)
+            let matchAddreess = zipTest.evaluate(with: zip)
+            if(!matchAddreess)
+            {
+                billingZipLabel.text = "❗️Invalid ZIP"
+                billingZipLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.billingZipFlag = false
+            }
+            else{
+                billingZipLabel.text = "ZIPCode"
+                billingZipLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.billingZipFlag = true
+            }
+        }
+    }
+    
+    func validate()
+    {
+        if ValidationModel.validationObject.nameOnCardFlag && ValidationModel.validationObject.cardNumberFlag && ValidationModel.validationObject.expiryFlag && ValidationModel.validationObject.securityCodeFlag && ValidationModel.validationObject.billingStreetFlag && ValidationModel.validationObject.billingCityFlag && ValidationModel.validationObject.billingStateFlag && ValidationModel.validationObject.billingZipFlag
+        {
+            reviewOrderBarButtonItem.isEnabled = true
+        }
+        else
+        {
+            reviewOrderBarButtonItem.isEnabled = false
+        }
     }
     
     // MARK - Unwind Segue

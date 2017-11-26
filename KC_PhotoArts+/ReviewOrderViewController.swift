@@ -21,6 +21,14 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var billingAddressLabel: UILabel!
     @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
     
+    @IBAction func placeOrderBarButtonItem(_ sender: UIBarButtonItem) {
+        let alert = UIAlertController(title: "Confirm!", message: "Are you sure to place the Order?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Place Order", style: UIAlertActionStyle.default){ action in
+            self.confirmOrder()
+        })
+        self.present(alert, animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,7 +71,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
         
         //Shipping Address
-        shippingAddressLabel.text = "\(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName) \r\n \(CheckoutCart.chekOutData.streetAddress) \r\n \(CheckoutCart.chekOutData.city) \r\n \(CheckoutCart.chekOutData.state) - \(CheckoutCart.chekOutData.zipCode)"
+        shippingAddressLabel.text = "\(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName) \r\n\(CheckoutCart.chekOutData.streetAddress) \r\n\(CheckoutCart.chekOutData.city) \r\n\(CheckoutCart.chekOutData.state) - \(CheckoutCart.chekOutData.zipCode)"
         
         //Payment Method
         nameOnCardLabel.text = CheckoutCart.chekOutData.NameOnCard
@@ -72,11 +80,17 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         securityCodeLabel.text = CheckoutCart.chekOutData.securityCode
         
         //Billing Address
-        billingAddressLabel.text = "\(CheckoutCart.chekOutData.billingStreerAddress) \r\n \(CheckoutCart.chekOutData.billingCity) \r\n \(CheckoutCart.chekOutData.billingCity) - \(CheckoutCart.chekOutData.billingZipCode)"
+        billingAddressLabel.text = "\(CheckoutCart.chekOutData.billingStreerAddress) \r\n\(CheckoutCart.chekOutData.billingCity) \r\n\(CheckoutCart.chekOutData.billingCity) - \(CheckoutCart.chekOutData.billingZipCode)"
         
         //Tab Bar
         totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
     }
+    
+    func confirmOrder()
+    {
+        print("confirm")
+    }
+    
     /*
     // MARK: - Navigation
 

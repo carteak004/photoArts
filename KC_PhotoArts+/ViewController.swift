@@ -81,16 +81,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         let singleArt:ArtData = photoArts[indexPath.row]
         
-        if let queue = inactiveQueue
-        {
-            queue.activate()
-        }
-        
-        let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
-        queueX.sync {
-            cell.artImageView.image = singleArt.smallImage.loadImage()
-        }
-        
+        cell.artImageView.image = singleArt.smallImage.loadImage()
         cell.artNameLabel.text = singleArt.itemName
         
         return cell

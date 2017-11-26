@@ -45,16 +45,7 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let queue = inactiveQueue
-        {
-            queue.activate()
-        }
-        
-        let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
-        queueX.sync {
-            largeImageView.image = sentLargeImage.loadImage()   //load image in image view
-        }
-        
+        largeImageView.image = sentLargeImage.loadImage()   //load image in image view
         
         //pickerView.selectRow(0, inComponent: frameComponent, animated: false) //select the No frame component
         updateLabel()

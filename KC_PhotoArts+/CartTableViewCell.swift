@@ -9,8 +9,6 @@
 import UIKit
 
 class CartTableViewCell: UITableViewCell {
-    
-    var quantity = 0
 
     @IBOutlet weak var artImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -22,9 +20,10 @@ class CartTableViewCell: UITableViewCell {
     
     
     @IBAction func QuantityChanged(_ sender: UIStepper) {
-        quantity = Int(sender.value)
+        CartData.itemQuantity = Int(sender.value)
         
-        quantityLabel.text = "Quantity: \(quantity)"
+        quantityLabel.text = "Quantity: \(CartData.itemQuantity)"
+        
         
     }
     

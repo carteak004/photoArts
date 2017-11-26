@@ -62,12 +62,6 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    //MARK: - Function to use stepper in the cell
-    func changeQuantity(cell: CartTableViewCell, step: Double) {
-        cell.quantityLabel.text = "changed"
-        cartTableView.reloadData()
-    }
-    
     /*swipe left to delete feature. adopted from https://www.hackingwithswift.com/example-code/uikit/how-to-swipe-to-delete-uitableviewcells */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {

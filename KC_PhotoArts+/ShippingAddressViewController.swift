@@ -10,16 +10,7 @@ import UIKit
 
 class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
-    // regex variables
-    let regexEmail = "[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}"
-    let regexPhone = "^[0-9]{6,15}$"
-    let regexText = "^[a-zA-Z]+$"
-    let regexZip = "\\b\\d{5}(?:-\\d{4})?\\b"
-    let regexState = "AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY"
-    let regexStreet = "\\d+[ ](?:[A-Za-z0-9.-]+[ ]?)+(?:Avenue|Lane|Road|Boulevard|Drive|Street|Ave|Dr|Rd|Blvd|Ln|St)\\.?"
-    
-    let validateFlag = true
-    
+        
     @IBOutlet weak var shippingTypeLabel: UILabel!
     @IBOutlet weak var totalItemsLabel: UILabel!
     @IBOutlet weak var deliveryDateLabel: UILabel!
@@ -62,20 +53,12 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         //}
     }
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        continueButtonLabel.isEnabled = false
+        //continueButtonLabel.isEnabled = false
         
-        firstNameTextField.delegate = self
-        lastNameTextField.delegate = self
-        emailTextField.delegate = self
-        addressTextField.delegate = self
-        cityTextField.delegate = self
-        stateTextField.delegate = self
+        validate()
+        
         
         //to move view up when tapped on keyboard
         NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -91,10 +74,8 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         cityTextField.text = CheckoutCart.chekOutData.city
         stateTextField.text = CheckoutCart.chekOutData.state
         zipCodeTextField.text = CheckoutCart.chekOutData.zipCode
-        addressTextField.text = CheckoutCart.chekOutData.billingStreerAddress
-        cityTextField.text = CheckoutCart.chekOutData.billingCity
-        stateTextField.text = CheckoutCart.chekOutData.billingState
-        zipCodeTextField.text = CheckoutCart.chekOutData.billingZipCode
+        phoneNumberTextField.text = CheckoutCart.chekOutData.phoneNumber
+        emailTextField.text = CheckoutCart.chekOutData.emailId
     }
     
     override func didReceiveMemoryWarning() {
@@ -169,20 +150,28 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         {
         case 1:
             validateFirstName(firstName: firstNameTextField.text!)
+            validate()
         case 2:
             validateLastName(lastName: lastNameTextField.text!)
+            validate()
         case 3:
             validatePhoneNumber(phone: phoneNumberTextField.text!)
+            validate()
         case 4:
             validateEmail(email: emailTextField.text!)
+            validate()
         case 5:
             validateAddress(address: addressTextField.text!)
+            validate()
         case 6:
             validateCity(city: cityTextField.text!)
+            validate()
         case 7:
             validateState(state: stateTextField.text!)
+            validate()
         case 8:
             validateZip(zip: zipCodeTextField.text!)
+            validate()
         default:
             break
         }
@@ -191,28 +180,43 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     
     
     // MARK: - User defined functions for validation
+    
+    func validate()
+    {
+        if ValidationModel.validationObject.emailFlag && ValidationModel.validationObject.phoneFlag && ValidationModel.validationObject.firstNameFlag && ValidationModel.validationObject.lastNameFlag && ValidationModel.validationObject.streetFlag && ValidationModel.validationObject.cityFlag && ValidationModel.validationObject.stateFlag && ValidationModel.validationObject.zipFlag
+        {
+            continueButtonLabel.isEnabled = true
+        }
+        else{
+            continueButtonLabel.isEnabled = false
+        }
+    }
+    
     func validateEmail(email: String)
     {
         if email == ""
         {
             emailLabel.text =  "❗️Please enter your e-mail address"
-            continueButtonLabel.isEnabled = false
-            //return !validateFlag
+            emailLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.emailFlag = false
         }
         else{
-            let emailTest = NSPredicate(format: "SELF MATCHES %@", regexEmail)
+            let emailTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexEmail)
             let matchEmailId = emailTest.evaluate(with: email)
             if(!matchEmailId)
             {
                 emailLabel.text = "❗️Please enter a valid Email Address"
-                continueButtonLabel.isEnabled = false
-                //return !validateFlag
+                emailLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.emailFlag = false
             }
             else
             {
                 emailLabel.text = "E-Mail"
-                continueButtonLabel.isEnabled = true
-                //return validateFlag
+                emailLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.emailFlag = true
             }
         }
     }
@@ -222,22 +226,25 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if phone == ""
         {
             phoneNumberLabel.text = "❗️Please enter a Phone Number"
-            continueButtonLabel.isEnabled = false
-            //return !validateFlag
+            phoneNumberLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.phoneFlag = false
         }
         else{
-            let phoneTest = NSPredicate(format: "SELF MATCHES %@", regexPhone)
+            let phoneTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexPhone)
             let matchPhone = phoneTest.evaluate(with: phone)
             if(!matchPhone)
             {
                 phoneNumberLabel.text = "❗️Please enter a valid Phone Number"
-                continueButtonLabel.isEnabled = false
-                //return !validateFlag
+                phoneNumberLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.phoneFlag = false
             }
             else{
                 phoneNumberLabel.text = "Phone Number"
-                continueButtonLabel.isEnabled = true
-                //return validateFlag
+                phoneNumberLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.phoneFlag = true
             }
         }
     }
@@ -247,22 +254,25 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if firstName == ""
         {
             firstNameLabel.text = "❗️Please enter your First Name"
-            continueButtonLabel.isEnabled = false
-            //return !validateFlag
+            firstNameLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.firstNameFlag = false
         }
         else{
-            let nameTest = NSPredicate(format: "SELF MATCHES %@", regexText)
+            let nameTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexText)
             let matchName = nameTest.evaluate(with: firstName)
             if(!matchName)
             {
                 firstNameLabel.text = "❗️Please enter a valid First Name"
-                continueButtonLabel.isEnabled = false
-                //return !validateFlag
+                firstNameLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.firstNameFlag = false
             }
             else{
                 firstNameLabel.text = "First Name"
-                continueButtonLabel.isEnabled = true
-                //return validateFlag
+                firstNameLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.firstNameFlag = true
             }
         }
     }
@@ -272,22 +282,25 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if lastName == ""
         {
             lastNameLabel.text = "❗️Please enter your Last Name"
-            continueButtonLabel.isEnabled = false
-            //return !validateFlag
+            lastNameLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.lastNameFlag = false
         }
         else{
-            let nameTest = NSPredicate(format: "SELF MATCHES %@", regexText)
+            let nameTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexText)
             let matchName = nameTest.evaluate(with: lastName)
             if(!matchName)
             {
                 lastNameLabel.text = "❗️Please enter a valid Last Name"
-                continueButtonLabel.isEnabled = false
-                //return !validateFlag
+                lastNameLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.lastNameFlag = false
             }
             else{
                 lastNameLabel.text = "Last Name"
-                continueButtonLabel.isEnabled = true
-                //return validateFlag
+                lastNameLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.lastNameFlag = true
             }
         }
     }
@@ -297,20 +310,15 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if address == ""
         {
             addressLabel.text = "❗️Please enter an Address"
-            continueButtonLabel.isEnabled = false
+            addressLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.streetFlag = false
         }
         else{
-            let addressTest = NSPredicate(format: "SELF MATCHES %@", regexStreet)
-            let matchAddreess = addressTest.evaluate(with: address)
-            if(!matchAddreess)
-            {
-                addressLabel.text = "❗️Please enter a valid Address"
-                continueButtonLabel.isEnabled = false
-            }
-            else{
-                addressLabel.text = "Address"
-                continueButtonLabel.isEnabled = true
-            }
+            addressLabel.text = "Address"
+            addressLabel.textColor = UIColor.black
+            //continueButtonLabel.isEnabled = true
+            ValidationModel.validationObject.streetFlag = true
         }
     }
     
@@ -319,19 +327,25 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if city == ""
         {
             cityLabel.text = "❗️Please enter a City"
-            continueButtonLabel.isEnabled = false
+            cityLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.cityFlag = false
         }
         else{
-            let cityTest = NSPredicate(format: "SELF MATCHES %@", regexText)
+            let cityTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexText)
             let matchAddreess = cityTest.evaluate(with: city)
             if(!matchAddreess)
             {
                 cityLabel.text = "❗️Please enter a valid City"
-                continueButtonLabel.isEnabled = false
+                cityLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.cityFlag = false
             }
             else{
                 cityLabel.text = "City"
-                continueButtonLabel.isEnabled = true
+                cityLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.cityFlag = true
             }
         }
     }
@@ -341,19 +355,25 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if state == ""
         {
             stateLabel.text = "❗️State required"
-            continueButtonLabel.isEnabled = false
+            stateLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.stateFlag = false
         }
         else{
-            let stateTest = NSPredicate(format: "SELF MATCHES %@", regexState)
+            let stateTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexState)
             let matchAddreess = stateTest.evaluate(with: state)
             if(!matchAddreess)
             {
                 stateLabel.text = "❗️Invalid State"
-                continueButtonLabel.isEnabled = false
+                stateLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.stateFlag = false
             }
             else{
                 stateLabel.text = "State"
-                continueButtonLabel.isEnabled = true
+                stateLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.stateFlag = true
             }
         }
     }
@@ -363,19 +383,25 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if zip == ""
         {
             zipcodeLabel.text = "❗️ZIPCode required"
-            continueButtonLabel.isEnabled = false
+            zipcodeLabel.textColor = UIColor.red
+            //continueButtonLabel.isEnabled = false
+            ValidationModel.validationObject.zipFlag = false
         }
         else{
-            let zipTest = NSPredicate(format: "SELF MATCHES %@", regexZip)
+            let zipTest = NSPredicate(format: "SELF MATCHES %@", ValidationModel.validationObject.regexZip)
             let matchAddreess = zipTest.evaluate(with: zip)
             if(!matchAddreess)
             {
                 zipcodeLabel.text = "❗️Invalid ZIPCode"
-                continueButtonLabel.isEnabled = false
+                zipcodeLabel.textColor = UIColor.red
+                //continueButtonLabel.isEnabled = false
+                ValidationModel.validationObject.zipFlag = false
             }
             else{
                 zipcodeLabel.text = "ZIPCode"
-                continueButtonLabel.isEnabled = true
+                zipcodeLabel.textColor = UIColor.black
+                //continueButtonLabel.isEnabled = true
+                ValidationModel.validationObject.zipFlag = true
             }
         }
     }
@@ -391,16 +417,14 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         if segue.identifier == "shipping3"
         {
             
-         CheckoutCart.chekOutData.firstName = firstNameTextField.text!
-         CheckoutCart.chekOutData.lastName = lastNameTextField.text!
-         CheckoutCart.chekOutData.streetAddress = addressTextField.text!
-         CheckoutCart.chekOutData.city = cityTextField.text!
-         CheckoutCart.chekOutData.state = stateTextField.text!
-         CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
-         CheckoutCart.chekOutData.billingStreerAddress = addressTextField.text!
-         CheckoutCart.chekOutData.billingCity = cityTextField.text!
-         CheckoutCart.chekOutData.billingState = stateTextField.text!
-         CheckoutCart.chekOutData.billingZipCode = zipCodeTextField.text!
+            CheckoutCart.chekOutData.firstName = firstNameTextField.text!
+            CheckoutCart.chekOutData.lastName = lastNameTextField.text!
+            CheckoutCart.chekOutData.streetAddress = addressTextField.text!
+            CheckoutCart.chekOutData.city = cityTextField.text!
+            CheckoutCart.chekOutData.state = stateTextField.text!
+            CheckoutCart.chekOutData.zipCode = zipCodeTextField.text!
+            CheckoutCart.chekOutData.phoneNumber = phoneNumberTextField.text!
+            CheckoutCart.chekOutData.emailId = emailTextField.text!
         }
     }
 }
