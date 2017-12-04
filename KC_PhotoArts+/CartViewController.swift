@@ -6,9 +6,15 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ The view implementing this class will show the items added to 
+ cart in a table view and displays the total value of the cart. 
+ This also shows a button to checkout.
+ **************************************************************/
+
 import UIKit
 
-class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, cartCellDelegate {
 
     //var totalPrice = 0
     
@@ -48,6 +54,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CELL", for: indexPath) as! CartTableViewCell
         
+        cell.delegate = self
+        
         let cartItem =  CartData.sharedInstance[indexPath.row]
         
         cell.artImageView.image = cartItem.itemImageURL.loadImage()
@@ -56,8 +64,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.sizeLabel.text = "Size: \(cartItem.size!)"
         cell.priceLabel.text = "Price: $\(cartItem.itemPrice!).00"
         cell.quantityLabel.text = "Quantity: \(cartItem.quantity!)"
+        cell.itemTotalLabel.text = "$\(cartItem.itemTotal!)"
         
         cell.quantityStepper.value = Double(cartItem.quantity)
+        
+        cell.index = indexPath.row
         
         return cell
     }
@@ -76,6 +87,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     // MARK - User defined functions
+    
+    func updateTotalforaCell()
+    {
+        updateTotalPrice()
+    }
     
     //function to update check out view. If there are no items in the cart, it will hide the controls on the screen or else it will display everything.
     
@@ -100,11 +116,17 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         //print(CartData.sharedInstance.count)
         cartTableView.reloadData()
+        
+        updateTotalPrice()
+    }
+    
+    func updateTotalPrice()
+    {
         CartData.totalPrice = 0
         //print(CartData.sharedInstance.count)
         for item in CartData.sharedInstance
         {
-            CartData.totalPrice += item.quantity * item.itemPrice
+            CartData.totalPrice += item.itemTotal
         }
         totalPriceLabel.text = "$\(CartData.totalPrice).00"
     }

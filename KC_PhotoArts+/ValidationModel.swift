@@ -6,6 +6,9 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ class that holds regex
+ **************************************************************/
 import UIKit
 
 class ValidationModel: NSObject {

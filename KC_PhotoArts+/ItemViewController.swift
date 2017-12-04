@@ -5,6 +5,12 @@
 //  Created by Kartheek chintalapati on 30/10/17.
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
+
+/**************************************************************
+ This view implementing this class shows the item details and 
+ lets user to add item to cart or go back to main view.
+ **************************************************************/
+
 /*implementation of picker view is adopted from https://makeapppie.com/2014/09/18/swift-swift-implementing-picker-views/ */
 import UIKit
 

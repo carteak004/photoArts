@@ -6,6 +6,10 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ The view implementing this class shows a web view about Author
+ **************************************************************/
+
 import UIKit
 
 class AuthorViewController: UIViewController {

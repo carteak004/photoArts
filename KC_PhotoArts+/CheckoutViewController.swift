@@ -6,6 +6,11 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ The view implementing this class lets the user to select the 
+ delivery option
+ **************************************************************/
+
 import UIKit
 
 class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {

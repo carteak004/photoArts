@@ -6,6 +6,11 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ The view implementing this class lets the user to enter 
+ shipping address and user details.
+ **************************************************************/
+
 import UIKit
 
 class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
@@ -59,11 +64,6 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         
         validate()
         
-        
-        //to move view up when tapped on keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-
         shippingOptionsLabel.text = "1. Shipping Options (\(CheckoutCart.chekOutData.items) items)"
         shippingOptionsDescriptionLabel.text = "\(CheckoutCart.chekOutData.shippingMethod) Shipping. Arrives on \(CheckoutCart.chekOutData.date)"
         totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
@@ -78,33 +78,47 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         emailTextField.text = CheckoutCart.chekOutData.emailId
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        /*if textField == zipCodeTextField || textField == cityTextField
+        {
+            animateViewMoving(up: true, moveValue: 100)
+        }*/
+        
+        switch textField
+        {
+        case emailTextField:
+            animateViewMoving(up: true, moveValue: 50)
+        case addressTextField:
+            animateViewMoving(up: true, moveValue: 100)
+        case cityTextField:
+            animateViewMoving(up: true, moveValue: 180)
+        case stateTextField:
+            animateViewMoving(up: true, moveValue: 180)
+        case zipCodeTextField:
+            animateViewMoving(up: true, moveValue: 180)
+        default:
+            break
+        }
+    }
+
+    
+    
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:TimeInterval = 0.3
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        
+        UIView.beginAnimations("animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    //MARK: - functions to move view up when keyboard is present 
-    /* code adopted from https://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift?answertab=votes#tab-top */
-    func keyboardWillShow(notification:NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0
-            {
-                self.view.frame.origin.y -= keyboardSize.height-50
-            }
-        }
-    }
-    
-    func keyboardWillHide(notification:NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0
-            {
-                self.view.frame.origin.y += keyboardSize.height-50
-            }
-        }
-    }
-    
     
     //MARK: - Delegate function to hide keyboard when tapped outside the field
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -160,18 +174,23 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
         case 4:
             validateEmail(email: emailTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 50)
         case 5:
             validateAddress(address: addressTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 100)
         case 6:
             validateCity(city: cityTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 180)
         case 7:
             validateState(state: stateTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 180)
         case 8:
             validateZip(zip: zipCodeTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 180)
         default:
             break
         }

@@ -5,7 +5,9 @@
 //  Created by Kartheek chintalapati on 29/10/17.
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
-
+/**************************************************************
+ Class that holds details of an art
+ **************************************************************/
 import UIKit
 
 class ArtData: NSObject {

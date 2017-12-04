@@ -6,6 +6,11 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ The view implementing this class lets user to enter payment 
+ details.
+ **************************************************************/
+
 import UIKit
 
 class PaymentViewController: UIViewController, UITextFieldDelegate {
@@ -48,11 +53,14 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         {
             //print("Switch is ON")
             valueAssignments(hide: true, street: CheckoutCart.chekOutData.streetAddress, city: CheckoutCart.chekOutData.city, state: CheckoutCart.chekOutData.state, zip: CheckoutCart.chekOutData.zipCode)
+            reviewOrderBarButtonItem.isEnabled = true
         }
         else{
             //performSegue(withIdentifier: "modifyBilling", sender: self)
             //print("Switch is OFF")
             valueAssignments(hide: false, street: CheckoutCart.chekOutData.billingStreerAddress, city: CheckoutCart.chekOutData.billingCity, state: CheckoutCart.chekOutData.billingState, zip: CheckoutCart.chekOutData.billingZipCode)
+            reviewOrderBarButtonItem.isEnabled = false
+            
         }
     }
     
@@ -71,8 +79,8 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         validate()
         
         //to move view up when tapped on keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ShippingAddressViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PaymentViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PaymentViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
         
         //Load the outlets
@@ -434,7 +442,9 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
     
     // MARK - Unwind Segue
     @IBAction func editPayment (_ segue:UIStoryboardSegue)
-    {}
+    {
+        reviewOrderBarButtonItem.isEnabled = true
+    }
     
     // MARK: - Navigation
 

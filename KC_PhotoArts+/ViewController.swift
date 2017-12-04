@@ -6,6 +6,10 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ This view has a collection view to display photos and a 
+ activity indicator that is shown while the data is loading.
+ **************************************************************/
  
 import UIKit
 
@@ -171,7 +175,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     //MARK: - Unwind Segues
-    @IBAction func unwindToCancel(_ segue:UIStoryboardSegue)
+    @IBAction func unwindToMain(_ segue:UIStoryboardSegue)
     {
         
     }

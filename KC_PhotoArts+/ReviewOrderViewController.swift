@@ -6,9 +6,19 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
-import UIKit
+/**************************************************************
+ The view implementing this class lets the user to review all 
+ the information one last time before placing the order. Once 
+ the user places and order, the app will prompt to send an 
+ e-mail confirmation.
+ **************************************************************/
 
-class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+import UIKit
+import MessageUI
+
+class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
+   
+
 
     @IBOutlet weak var shippingOptionsLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -22,13 +32,51 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var totalBarButtonItem: UIBarButtonItem!
     
     @IBAction func placeOrderBarButtonItem(_ sender: UIBarButtonItem) {
+        
         let alert = UIAlertController(title: "Confirm!", message: "Are you sure to place the Order?", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler:nil))
         alert.addAction(UIAlertAction(title: "Place Order", style: UIAlertActionStyle.default){ action in
-            self.confirmOrder()
+
+            let mailVC = MFMailComposeViewController()
+            mailVC.mailComposeDelegate = self
+            mailVC.setToRecipients([CheckoutCart.chekOutData.emailId])
+            mailVC.setBccRecipients(["class1photoarts@gmail.com"])
+            mailVC.setSubject("Purchase Confirmation from KC-PhotoArts+ team")
+            mailVC.setMessageBody(self.messageBody(), isHTML: false)
+            
+            //present the view controller modally
+            if MFMailComposeViewController.canSendMail() {
+                self.present(mailVC, animated: true, completion: nil)
+            }
         })
         self.present(alert, animated: true, completion: nil)
+        
     }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        switch (result.rawValue) {
+        case MessageComposeResult.cancelled.rawValue:
+            print("Message was cancelled")
+            self.dismiss(animated: true, completion: nil)
+        case MessageComposeResult.failed.rawValue:
+            print("Message failed")
+            self.dismiss(animated: true, completion: nil)
+        case MessageComposeResult.sent.rawValue:
+            print("Message was sent")
+            self.dismiss(animated: true, completion: nil)
+        default:
+            break;
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+        CartData.sharedInstance.removeAll()
+        CheckoutCart.chekOutData = CheckoutCart()
+        CartData.totalPrice = 0
+        performSegue(withIdentifier: "mainVC", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -86,11 +134,27 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
     }
     
-    func confirmOrder()
+    func messageBody() -> String
     {
-        print("confirm")
+        var index = 0
+        var cartDetails:String = "Items Purchased:\n"
+        
+        for item in CartData.sharedInstance
+        {
+            index += 1
+            cartDetails.append("\(index). ")
+            cartDetails.append(" Item Name: \(item.itemName!)\n")
+            cartDetails.append(" Item Price: \(item.itemPrice!)\n")
+            cartDetails.append(" Quantity: \(item.quantity!)\n\n\n")
+        }
+        
+        cartDetails.append("\(shippingOptionsDescriptionLabel.text!)\n\n\n")
+        cartDetails.append("Shipping Address:\n\(shippingAddressLabel.text!)\n\n\n")
+        cartDetails.append("Payment done from card ending with \(String(CheckoutCart.chekOutData.cardNumber.characters.suffix(4)))\n\n\n")
+        cartDetails.append("Billing Address:\n\(billingAddressLabel.text!)")
+        
+        return cartDetails
     }
-    
     /*
     // MARK: - Navigation
 

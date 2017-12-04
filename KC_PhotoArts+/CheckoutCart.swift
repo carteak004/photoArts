@@ -6,6 +6,9 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ class that holds payment details
+ **************************************************************/
 import UIKit
 
 class CheckoutCart: NSObject {
@@ -32,5 +35,4 @@ class CheckoutCart: NSObject {
     var billingCity = ""
     var billingState = ""
     var billingZipCode = ""
-    
 }
