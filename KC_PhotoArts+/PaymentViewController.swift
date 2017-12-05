@@ -53,14 +53,27 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         {
             //print("Switch is ON")
             valueAssignments(hide: true, street: CheckoutCart.chekOutData.streetAddress, city: CheckoutCart.chekOutData.city, state: CheckoutCart.chekOutData.state, zip: CheckoutCart.chekOutData.zipCode)
-            reviewOrderBarButtonItem.isEnabled = true
+            //reviewOrderBarButtonItem.isEnabled = true
+            ValidationModel.validationObject.billingStreetFlag = true
+            ValidationModel.validationObject.billingCityFlag = true
+            ValidationModel.validationObject.billingStateFlag = true
+            ValidationModel.validationObject.billingZipFlag = true
+            validate()
         }
         else{
             //performSegue(withIdentifier: "modifyBilling", sender: self)
             //print("Switch is OFF")
             valueAssignments(hide: false, street: CheckoutCart.chekOutData.billingStreerAddress, city: CheckoutCart.chekOutData.billingCity, state: CheckoutCart.chekOutData.billingState, zip: CheckoutCart.chekOutData.billingZipCode)
-            reviewOrderBarButtonItem.isEnabled = false
-            
+            //reviewOrderBarButtonItem.isEnabled = false
+            if CheckoutCart.chekOutData.billingStreerAddress == "" || CheckoutCart.chekOutData.billingCity == "" || CheckoutCart.chekOutData.billingState == "" || CheckoutCart.chekOutData.billingZipCode == ""
+            {
+                ValidationModel.validationObject.billingStreetFlag = false
+                ValidationModel.validationObject.billingCityFlag = false
+                ValidationModel.validationObject.billingStateFlag = false
+                ValidationModel.validationObject.billingZipFlag = false
+                validate()
+            }
+            validate()
         }
     }
     
@@ -78,9 +91,7 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         ValidationModel.validationObject.billingZipFlag = true
         validate()
         
-        //to move view up when tapped on keyboard
-        NotificationCenter.default.addObserver(self, selector: #selector(PaymentViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(PaymentViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         
         
         //Load the outlets
@@ -112,27 +123,7 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: - functions to move view up when keyboard is present
-    /* code adopted from https://stackoverflow.com/questions/26070242/move-view-with-keyboard-using-swift?answertab=votes#tab-top */
-    func keyboardWillShow(notification:NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0
-            {
-                self.view.frame.origin.y -= keyboardSize.height-30
-            }
-        }
-    }
     
-    func keyboardWillHide(notification:NSNotification)
-    {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0
-            {
-                self.view.frame.origin.y += keyboardSize.height-30
-            }
-        }
-    }
     
     
     //MARK: - Delegate function to hide keyboard when tapped outside the field
@@ -180,34 +171,79 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
         case nameOnCardTextField:
             validateName(name: nameOnCardTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 80)
         case cardNumberTextField:
             validateCardNumber(cardNumber: cardNumberTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 80)
         case expiryTextField:
             validateExpiry(expiry: expiryTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 80)
         case securityCodeTextField:
             validateSecurityCode(cvv: securityCodeTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 80)
         case billingStreetAddressTextField:
             validateAddress(address: billingStreetAddressTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 150)
         case billingCityTextField:
             validateCity(city: billingCityTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 150)
         case billingStateTextField:
             validateState(state: billingStateTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 150)
         case billingZipCodeTextField:
             validateZip(zip: billingZipCodeTextField.text!)
             validate()
+            animateViewMoving(up: false, moveValue: 150)
         default:
             break
         }
 
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField
+        {
+        case nameOnCardTextField:
+            animateViewMoving(up: true, moveValue: 80)
+        case cardNumberTextField:
+            animateViewMoving(up: true, moveValue: 80)
+        case expiryTextField:
+            animateViewMoving(up: true, moveValue: 80)
+        case securityCodeTextField:
+            animateViewMoving(up: true, moveValue: 80)
+        case billingStreetAddressTextField:
+            animateViewMoving(up: true, moveValue: 150)
+        case billingCityTextField:
+            animateViewMoving(up: true, moveValue: 150)
+        case billingStateTextField:
+            animateViewMoving(up: true, moveValue: 150)
+        case billingZipCodeTextField:
+            animateViewMoving(up: true, moveValue: 150)
+        default:
+            break
+        }
+    }
+    
     // MARK: - User defined functions
+    
+    //function to move view up or down when keyboard is present
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:TimeInterval = 0.3
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        
+        UIView.beginAnimations("animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration)
+        
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
     
     //function to show/hide and assign values to billing address controls
     func valueAssignments(hide:Bool, street:String, city:String, state:String, zip:String)
@@ -404,7 +440,7 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
     {
         if zip == ""
         {
-            billingZipLabel.text = "❗️ZIP required"
+            billingZipLabel.text = "❗️Zip required"
             billingZipLabel.textColor = UIColor.red
             //continueButtonLabel.isEnabled = false
             ValidationModel.validationObject.billingZipFlag = false
@@ -414,13 +450,13 @@ class PaymentViewController: UIViewController, UITextFieldDelegate {
             let matchAddreess = zipTest.evaluate(with: zip)
             if(!matchAddreess)
             {
-                billingZipLabel.text = "❗️Invalid ZIP"
+                billingZipLabel.text = "❗️Invalid Zip"
                 billingZipLabel.textColor = UIColor.red
                 //continueButtonLabel.isEnabled = false
                 ValidationModel.validationObject.billingZipFlag = false
             }
             else{
-                billingZipLabel.text = "ZIPCode"
+                billingZipLabel.text = "Zip Code"
                 billingZipLabel.textColor = UIColor.black
                 //continueButtonLabel.isEnabled = true
                 ValidationModel.validationObject.billingZipFlag = true

@@ -19,6 +19,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     var photoArts = [ArtData]()
     
     var inactiveQueue:DispatchQueue!
+    let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
     //var alertcontroller:UIAlertController!
     
     var itemNumber:String!
@@ -58,7 +59,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
             queue.activate()
         }
         
-        let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
+        
         queueX.sync {
             fetchArtData()
         }
@@ -85,7 +86,9 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         let singleArt:ArtData = photoArts[indexPath.row]
         
+        queueX.sync {
         cell.artImageView.image = singleArt.smallImage.loadImage()
+        }
         cell.artNameLabel.text = singleArt.itemName
         
         return cell
@@ -182,30 +185,13 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     @IBAction func addToCart(_ segue:UIStoryboardSegue)
     {
+        if let loginVC = segue.source as? LoginViewController
+        {
+            CartData.sharedInstance.append(CartData(quantity: loginVC.quantity, size: loginVC.size, frame: loginVC.frame, itemPrice: loginVC.itemPrice, itemTotal: loginVC.itemTotal, itemNumber: itemNumber, itemName: itemName, itemImageURL: itemImageURL))
+        }
+
         if let itemVC = segue.source as? ItemViewController
         {
-            /******************************************************************************************************************************************************
-            alertcontroller = UIAlertController(title: "Success", message: "added successfully to your cart!!!", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            
-            alertcontroller.addAction(okAction)
-            
-            //self.present(alertcontroller, animated: true, completion: nil)
-            UIApplication.shared.keyWindow?.rootViewController?.present(alertcontroller, animated: true, completion: nil)
-            ******************************************************************************************************************************************************/
-            /*let cartItem = CartData()
-            cartItem.quantity = itemVC.quantity
-            cartItem.size = itemVC.size
-            cartItem.frame = itemVC.frame
-            cartItem.itemPrice = itemVC.itemPrice
-            cartItem.itemTotal = itemVC.itemTotal
-            cartItem.itemNumber = itemNumber
-            cartItem.itemName = itemName
-            cartItem.itemImageURL = itemImageURL
-            
-            CartData.sharedInstance.append(cartItem)
-            */
             CartData.sharedInstance.append(CartData(quantity: itemVC.quantity, size: itemVC.size, frame: itemVC.frame, itemPrice: itemVC.itemPrice, itemTotal: itemVC.itemTotal, itemNumber: itemNumber, itemName: itemName, itemImageURL: itemImageURL))
         }
     }

@@ -15,6 +15,8 @@ class ValidationModel: NSObject {
 
     static var validationObject = ValidationModel()
     
+    static var sessionCheck = true
+    
     // regex variables
     let regexEmail = "[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}"
     let regexPhone = "^[0-9]{6,10}$"
@@ -33,13 +35,20 @@ class ValidationModel: NSObject {
     var cityFlag = false
     var stateFlag = false
     var zipFlag = false
+    
     var nameOnCardFlag = false
     var cardNumberFlag = false
     var expiryFlag = false
     var securityCodeFlag = false
+    
     var billingStreetFlag = false
     var billingCityFlag = false
     var billingStateFlag = false
     var billingZipFlag = false
 
+    var signupFirstNameFlag = false
+    var signUpLastNameFlag = false
+    var signupEmailFlag = false
+    var signupPasswordFlag = false
+    var signupRepeatPasswordFlag = false
 }

@@ -25,7 +25,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var quantityStepper: UIStepper!
     
-    
+    var inactiveQueue:DispatchQueue!
+    let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
     
     override func viewWillAppear(_ animated: Bool) {
         checkOutViewUpdate()
@@ -34,6 +35,12 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let queue = inactiveQueue
+        {
+            queue.activate()
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +65,9 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cartItem =  CartData.sharedInstance[indexPath.row]
         
-        cell.artImageView.image = cartItem.itemImageURL.loadImage()
+        queueX.sync {
+            cell.artImageView.image = cartItem.itemImageURL.loadImage()
+        }
         cell.nameLabel.text = cartItem.itemName
         cell.frameLabel.text = "Frame: \(cartItem.frame!)"
         cell.sizeLabel.text = "Size: \(cartItem.size!)"

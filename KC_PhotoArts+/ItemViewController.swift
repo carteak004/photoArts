@@ -30,6 +30,7 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     var itemTotal:Int!
     
     var inactiveQueue:DispatchQueue!
+    let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
 
     @IBOutlet weak var viewForImage: UIView!
     @IBOutlet weak var largeImageView: UIImageView!
@@ -47,11 +48,47 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         updateLabel()
     }
     
+    @IBAction func AddButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if ValidationModel.sessionCheck
+        {
+            ValidationModel.sessionCheck = false
+            
+            let alertController = UIAlertController(title: "How do you want to Proceed?", message: "How do you want to Proceed?", preferredStyle: .actionSheet)
+            
+            let signInAction = UIAlertAction(title: "Sign In", style: .default) { (action) in
+                self.performSegue(withIdentifier: "login", sender: self)
+            }
+            
+            let guestAction = UIAlertAction(title: "Check out as Guest", style: .default) { (action) in
+                self.performSegue(withIdentifier: "addToCart", sender: self)
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addAction(signInAction)
+            alertController.addAction(guestAction)
+            alertController.addAction(cancel)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else
+        {
+            self.performSegue(withIdentifier: "addToCart", sender: self)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        largeImageView.image = sentLargeImage.loadImage()   //load image in image view
+        if let queue = inactiveQueue
+        {
+            queue.activate()
+        }
+        queueX.sync {
+            largeImageView.image = sentLargeImage.loadImage()   //load image in image view
+        }
+        
         
         //pickerView.selectRow(0, inComponent: frameComponent, animated: false) //select the No frame component
         updateLabel()
@@ -158,14 +195,24 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "login"
+        {
+           
+            let navVC = segue.destination as! UINavigationController
+            let loginVC = navVC.topViewController as! LoginViewController
+            
+            loginVC.quantity = quantity
+            loginVC.size = size
+            loginVC.frame = frame
+            loginVC.itemPrice = itemPrice
+            loginVC.itemTotal = itemTotal
+        }
     }
-    */
+    
 
 }

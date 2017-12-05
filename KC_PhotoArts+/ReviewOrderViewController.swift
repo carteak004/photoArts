@@ -33,7 +33,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBAction func placeOrderBarButtonItem(_ sender: UIBarButtonItem) {
         
-        let alert = UIAlertController(title: "Confirm!", message: "Are you sure to place the Order?", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Confirmation", message: "Are you sure to place the Order?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler:nil))
         alert.addAction(UIAlertAction(title: "Place Order", style: UIAlertActionStyle.default){ action in
 
@@ -79,7 +79,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadLabels() //function to load labels
     }
 
@@ -109,6 +109,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         
         return cell
     }
+    
 
     // MARK: - User defined functions
     //function to load labels
@@ -137,7 +138,15 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     func messageBody() -> String
     {
         var index = 0
-        var cartDetails:String = "Items Purchased:\n"
+        let orderDate:String!
+        
+        let date = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        
+        orderDate = "\(components.month!)/\(components.day!)/\(components.year!)"
+        
+        var cartDetails:String = "Hey \(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName). Here is the summary for your Order placed on \(orderDate):\nItems Purchased:\n"
         
         for item in CartData.sharedInstance
         {

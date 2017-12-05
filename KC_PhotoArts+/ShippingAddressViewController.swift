@@ -401,7 +401,7 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
     {
         if zip == ""
         {
-            zipcodeLabel.text = "❗️ZIPCode required"
+            zipcodeLabel.text = "❗️Zip Code required"
             zipcodeLabel.textColor = UIColor.red
             //continueButtonLabel.isEnabled = false
             ValidationModel.validationObject.zipFlag = false
@@ -411,13 +411,13 @@ class ShippingAddressViewController: UIViewController, UITextFieldDelegate {
             let matchAddreess = zipTest.evaluate(with: zip)
             if(!matchAddreess)
             {
-                zipcodeLabel.text = "❗️Invalid ZIPCode"
+                zipcodeLabel.text = "❗️Invalid Zip Code"
                 zipcodeLabel.textColor = UIColor.red
                 //continueButtonLabel.isEnabled = false
                 ValidationModel.validationObject.zipFlag = false
             }
             else{
-                zipcodeLabel.text = "ZIPCode"
+                zipcodeLabel.text = "Zip Code"
                 zipcodeLabel.textColor = UIColor.black
                 //continueButtonLabel.isEnabled = true
                 ValidationModel.validationObject.zipFlag = true
