@@ -30,6 +30,7 @@
 		13007C4C1FBCD3A6003DA99C /* ReviewOrderCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13007C4B1FBCD3A6003DA99C /* ReviewOrderCVCell.swift */; };
 		132318D01FB0FACE002A385D /* CartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132318CF1FB0FACD002A385D /* CartData.swift */; };
 		132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 132318D41FB0FF1C002A385D /* CartViewController.swift */; };
+		134F057E1FD75AC1008242BE /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134F057D1FD75AC1008242BE /* ForgotPasswordViewController.swift */; };
 		138255611FB519D500A44F50 /* ShippingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138255601FB519D500A44F50 /* ShippingAddressViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		13007C4B1FBCD3A6003DA99C /* ReviewOrderCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewOrderCVCell.swift; sourceTree = "<group>"; };
 		132318CF1FB0FACD002A385D /* CartData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartData.swift; sourceTree = "<group>"; };
 		132318D41FB0FF1C002A385D /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		134F057D1FD75AC1008242BE /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		138255601FB519D500A44F50 /* ShippingAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAddressViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				0DCEF95B1FD6250C0027EAAB /* LoginViewController.swift */,
+				134F057D1FD75AC1008242BE /* ForgotPasswordViewController.swift */,
 				0D1961101F9F83AA00261FD5 /* ViewController.swift */,
 				0D8CA35D1FA6764000167B3A /* CVCell.swift */,
 				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
@@ -345,6 +348,7 @@
 				0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */,
 				0DCB32191FB13DCB00CDAB36 /* CartTableViewCell.swift in Sources */,
 				0D19610F1F9F83AA00261FD5 /* AppDelegate.swift in Sources */,
+				134F057E1FD75AC1008242BE /* ForgotPasswordViewController.swift in Sources */,
 				132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */,
 				0D1FE9371FBD9E10003A7913 /* AuthorViewController.swift in Sources */,
 				132318D01FB0FACE002A385D /* CartData.swift in Sources */,

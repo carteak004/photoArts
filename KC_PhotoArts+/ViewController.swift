@@ -188,6 +188,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
         if let loginVC = segue.source as? LoginViewController
         {
             CartData.sharedInstance.append(CartData(quantity: loginVC.quantity, size: loginVC.size, frame: loginVC.frame, itemPrice: loginVC.itemPrice, itemTotal: loginVC.itemTotal, itemNumber: itemNumber, itemName: itemName, itemImageURL: itemImageURL))
+            
         }
 
         if let itemVC = segue.source as? ItemViewController

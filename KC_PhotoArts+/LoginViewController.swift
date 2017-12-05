@@ -67,6 +67,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func signInFromSignUpPageTapped(_ sender: UIButton) {
+        signInView.isHidden = false
+        signUpView.isHidden = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
