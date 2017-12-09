@@ -15,7 +15,7 @@ class CheckoutCart: NSObject {
 
     static var chekOutData = CheckoutCart()
     
-    var items = 0
+    var items:Int64 = 0
     var date = ""
     var shippingMethod = ""
     var price = ""

@@ -15,6 +15,7 @@
 
 import UIKit
 import MessageUI
+import CoreData
 
 class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MFMailComposeViewControllerDelegate, MFMessageComposeViewControllerDelegate {
    
@@ -36,18 +37,11 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         let alert = UIAlertController(title: "Confirmation", message: "Are you sure to place the Order?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler:nil))
         alert.addAction(UIAlertAction(title: "Place Order", style: UIAlertActionStyle.default){ action in
-
-            let mailVC = MFMailComposeViewController()
-            mailVC.mailComposeDelegate = self
-            mailVC.setToRecipients([CheckoutCart.chekOutData.emailId])
-            mailVC.setBccRecipients(["class1photoarts@gmail.com"])
-            mailVC.setSubject("Purchase Confirmation from KC-PhotoArts+ team")
-            mailVC.setMessageBody(self.messageBody(), isHTML: false)
-            
-            //present the view controller modally
-            if MFMailComposeViewController.canSendMail() {
-                self.present(mailVC, animated: true, completion: nil)
+            if !ValidationModel.sessionIsOff
+            {
+                self.changeStatus(status: "paid")
             }
+            self.sendEmail()
         })
         self.present(alert, animated: true, completion: nil)
         
@@ -63,6 +57,12 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
             self.dismiss(animated: true, completion: nil)
         case MessageComposeResult.sent.rawValue:
             print("Message was sent")
+            
+            if !ValidationModel.sessionIsOff
+            {
+                self.changeStatus(status: "complete")
+            }
+            
             self.dismiss(animated: true, completion: nil)
         default:
             break;
@@ -133,6 +133,44 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         
         //Tab Bar
         totalBarButtonItem.setItem(total: CheckoutCart.chekOutData.price)
+    }
+    
+    func changeStatus(status:String)
+    {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let results = try context.fetch(request)
+            
+            if results.count > 0{
+                for items in results as! [NSManagedObject] {
+                    if items.value(forKey: "username") as? String == ValidationModel.username{
+                       items.setValue(status, forKey: "status")
+                        
+                        ad.saveContext()
+                    }
+                }
+            }
+            print("Found \(results.count) users")
+        } catch  {
+            print("Fetched Data Error!")
+        }
+    }
+    
+    func sendEmail()
+    {
+        let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self
+        mailVC.setToRecipients([CheckoutCart.chekOutData.emailId])
+        mailVC.setBccRecipients(["class1photoarts@gmail.com"])
+        mailVC.setSubject("Purchase Confirmation from KC-PhotoArts+ team")
+        mailVC.setMessageBody(self.messageBody(), isHTML: false)
+        
+        //present the view controller modally
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailVC, animated: true, completion: nil)
+        }
     }
     
     func messageBody() -> String

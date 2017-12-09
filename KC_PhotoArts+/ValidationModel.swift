@@ -15,7 +15,8 @@ class ValidationModel: NSObject {
 
     static var validationObject = ValidationModel()
     
-    static var sessionCheck = true
+    static var sessionIsOff = true
+    static var username = ""
     
     // regex variables
     let regexEmail = "[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}"

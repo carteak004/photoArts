@@ -27,7 +27,7 @@ class CartTableViewCell: UITableViewCell {
     var index:Int!
     
     @IBAction func QuantityChanged(_ sender: UIStepper) {
-        CartData.sharedInstance[index].quantity = Int(sender.value)
+        CartData.sharedInstance[index].quantity = Int64(sender.value)
         
         CartData.sharedInstance[index].itemTotal = CartData.sharedInstance[index].itemPrice * CartData.sharedInstance[index].quantity
         

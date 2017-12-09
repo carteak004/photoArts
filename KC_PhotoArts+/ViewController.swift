@@ -26,8 +26,11 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
     var itemName:String!
     var itemImageURL:String!
     
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet weak var loginButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     
     override func viewDidLoad() {
         activityIndicator.hidesWhenStopped = true       //hide the activity indicator when it is not animating
@@ -160,6 +163,7 @@ class ViewCvarroller: UIViewController, UICollectionViewDelegate, UICollectionVi
             
                 itemVC.sentLargeImage = singleItem.largeImage
                 itemVC.title = singleItem.itemName
+                itemVC.itemNumber = singleItem.itemNumber
                 
                 itemName = singleItem.itemName
                 itemNumber = singleItem.itemNumber

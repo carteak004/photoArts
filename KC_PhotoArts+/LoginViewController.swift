@@ -12,11 +12,11 @@ import CoreData
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //Variables
-    var quantity:Int!
+    var quantity:Int64!
     var size:String!
     var frame:String!
-    var itemPrice:Int!
-    var itemTotal:Int!
+    var itemPrice:Int64!
+    var itemTotal:Int64!
     
     //Sign In
     @IBOutlet weak var usernameTextField: UITextField!
@@ -40,6 +40,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var signupPasswordLabel: UILabel!
     @IBOutlet weak var repeatPasswordLabel: UILabel!
     
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "cancelLoginToCart", sender: self)
+    }
     @IBAction func SignUpButtonPressed(_ sender: UIButton) {
         let firstName = firstNameTextField.text!
         let lastName = lastNameTextField.text!
@@ -63,7 +66,47 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if attemptFetch(username: username, password: password)
         {
-            performSegue(withIdentifier: "success", sender: self)
+            ValidationModel.sessionIsOff = false
+            ValidationModel.username = username
+            
+            if CartData.sharedInstance.count > 0
+            {
+                for item in CartData.sharedInstance
+                {
+                    let cartItem = Cart(context: context)
+                    
+                    cartItem.username = username
+                    cartItem.frame = item.frame
+                    cartItem.itemImageURL = item.itemImageURL
+                    cartItem.itemName = item.itemName
+                    cartItem.itemNumber = item.itemNumber
+                    cartItem.itemPrice = item.itemPrice
+                    cartItem.itemTotal = item.itemTotal
+                    cartItem.quantity = item.quantity
+                    cartItem.size = item.size
+                    cartItem.status = "open"
+                    
+                    ad.saveContext()
+                }
+            }
+            
+            performSegue(withIdentifier: "toCheckout", sender: self)
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Invalid Credentials", message: "Credentials provided doesn't match our records", preferredStyle: .alert)
+            
+            let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel, handler: nil)
+            
+            let createAccountAction = UIAlertAction(title: "Create Account", style: .default){(action) in
+                self.signInView.isHidden = true
+                self.signUpView.isHidden = false
+            }
+            
+            alert.addAction(tryAgainAction)
+            alert.addAction(createAccountAction)
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -144,6 +187,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
+    
+    // MARK: - Unwind segues
+    @IBAction func backToSignIn(_ segue:UIStoryboardSegue)
+    {}
     
     // MARK: - User Defined Functions
     func createUser(firstName:String, lastName:String, username:String, password:String)

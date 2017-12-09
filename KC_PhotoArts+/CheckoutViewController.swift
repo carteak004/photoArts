@@ -134,7 +134,7 @@ class CheckoutViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "shipping2"
         {
-            var numberOfItems = 0
+            var numberOfItems:Int64 = 0
             
             for item in CartData.sharedInstance
             {

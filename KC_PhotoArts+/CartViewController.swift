@@ -13,6 +13,7 @@
  **************************************************************/
 
 import UIKit
+import CoreData
 
 class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, cartCellDelegate {
 
@@ -23,12 +24,49 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var checkOutButtonLabel: UIButton!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var quantityStepper: UIStepper!
     
     var inactiveQueue:DispatchQueue!
     let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
     
+    var sessionCart = [CartData]()
+    
+    @IBAction func checkOutButtonPressed(_ sender: UIButton) {
+        
+        
+        if ValidationModel.sessionIsOff
+        {
+            
+            let alertController = UIAlertController(title: "How do you want to Proceed?", message: "Sign in to track your Purchase History", preferredStyle: .actionSheet)
+            
+            let signInAction = UIAlertAction(title: "Sign In", style: .default) { (action) in
+                self.performSegue(withIdentifier: "login", sender: self)
+            }
+            
+            let guestAction = UIAlertAction(title: "Check out as Guest", style: .default) { (action) in
+                self.performSegue(withIdentifier: "checkOut", sender: self)
+            }
+            
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addAction(signInAction)
+            alertController.addAction(guestAction)
+            alertController.addAction(cancel)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        else
+        {
+            self.performSegue(withIdentifier: "checkOut", sender: self)
+        }
+        
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
+        if !ValidationModel.sessionIsOff
+        {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutAction))
+            fetchCart()
+        }
         checkOutViewUpdate()
     }
     
@@ -41,6 +79,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             queue.activate()
         }
 
+        if !ValidationModel.sessionIsOff
+        {
+            fetchCart()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,6 +98,12 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !ValidationModel.sessionIsOff
+        {
+            print(sessionCart.count)
+            return sessionCart.count
+        }
+        
         return CartData.sharedInstance.count
     }
     
@@ -63,7 +112,15 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.delegate = self
         
-        let cartItem =  CartData.sharedInstance[indexPath.row]
+        let cartItem:CartData!
+        
+        if !ValidationModel.sessionIsOff
+        {
+            cartItem = sessionCart[indexPath.row]
+        }
+        else{
+             cartItem =  CartData.sharedInstance[indexPath.row]
+        }
         
         queueX.sync {
             cell.artImageView.image = cartItem.itemImageURL.loadImage()
@@ -97,16 +154,64 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK - User defined functions
     
+    //logout button action
+    func logoutAction()
+    {
+        ValidationModel.username = ""
+        ValidationModel.sessionIsOff = true
+        CartData.sharedInstance.removeAll()
+        checkOutViewUpdate()
+        navigationItem.leftBarButtonItem = nil
+    }
+    
+    //delegate function
     func updateTotalforaCell()
     {
         updateTotalPrice()
+    }
+    
+    //fetch data
+    func fetchCart()
+    {
+        sessionCart.removeAll()
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Cart")
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let results = try context.fetch(request)
+            
+            if results.count > 0{
+                for items in results as! [NSManagedObject] {
+                    if items.value(forKey: "username") as? String == ValidationModel.username{
+                        sessionCart.append(CartData(quantity: (items.value(forKey: "quantity") as? Int64)!, size: (items.value(forKey: "size") as? String)!, frame: (items.value(forKey: "frame") as? String)!, itemPrice: (items.value(forKey: "itemPrice") as? Int64)!, itemTotal: (items.value(forKey: "itemTotal") as? Int64)!, itemNumber: (items.value(forKey: "itemNumber") as? String)!, itemName: (items.value(forKey: "itemName") as? String)!, itemImageURL: (items.value(forKey: "itemImageURL") as? String)!))
+                        print(items.value(forKey: "itemName")!)
+                    }
+                }
+            }
+            print("Found \(results.count) items in the cart")
+        } catch  {
+            print("Fetched Data Error!")
+        }
+
     }
     
     //function to update check out view. If there are no items in the cart, it will hide the controls on the screen or else it will display everything.
     
     func checkOutViewUpdate()
     {
-        if CartData.sharedInstance.count == 0
+        var cartSource = [CartData]()
+        
+        if !ValidationModel.sessionIsOff
+        {
+            cartSource = sessionCart
+        }
+        else
+        {
+            cartSource = CartData.sharedInstance
+        }
+        
+        if cartSource.count == 0
         {
             cartTableView.isHidden = true
             emptyLabel.isHidden = false
@@ -132,8 +237,19 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     func updateTotalPrice()
     {
         CartData.totalPrice = 0
-        //print(CartData.sharedInstance.count)
-        for item in CartData.sharedInstance
+        
+        var cartSource = [CartData]()
+        
+        if !ValidationModel.sessionIsOff
+        {
+            cartSource = sessionCart
+        }
+        else
+        {
+            cartSource = CartData.sharedInstance
+        }
+        
+        for item in cartSource
         {
             CartData.totalPrice += item.itemTotal
         }
@@ -146,6 +262,9 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     {
         CartData.totalPrice = 0
     }
+    
+    @IBAction func unwindFromLogin(_ segue:UIStoryboardSegue)
+    {}
     
     /*
     // MARK: - Navigation

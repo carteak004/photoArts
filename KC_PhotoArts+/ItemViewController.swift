@@ -13,6 +13,7 @@
 
 /*implementation of picker view is adopted from https://makeapppie.com/2014/09/18/swift-swift-implementing-picker-views/ */
 import UIKit
+import CoreData
 
 class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -21,13 +22,14 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     let sizeComponent = 1
     
     let pickerData = [["No Frame","Matte Black","Matte White", "Brushed Silver", "Matte Brass", "Light Grey Wood"],["7\" x 5\"", "10\" x 8\"", "14\" x 11\"", "20\" x 16\"", "24\" x 18\"", "40\" x 30\"", "54\" x 40\"", "60\" x 44\""]]
-    let price = [[24,35,50,76,97,164,230,248],[29,46,89,158,189,365,570,0]]
+    let price:[[Int64]] = [[24,35,50,76,97,164,230,248],[29,46,89,158,189,365,570,0]]
     
-    var quantity = 1
+    var quantity:Int64 = 1
     var size:String!
     var frame:String!
-    var itemPrice:Int!
-    var itemTotal:Int!
+    var itemPrice:Int64!
+    var itemTotal:Int64!
+    var itemNumber:String!
     
     var inactiveQueue:DispatchQueue!
     let queueX = DispatchQueue(label: "edu.cs.niu.queueX")
@@ -43,39 +45,31 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var addToCartButtonLabel: UIBarButtonItem!
     
     @IBAction func quantityStepper(_ sender: UIStepper) {
-        quantity = Int(sender.value)
+        quantity = Int64(sender.value)
         quantityLabel.text = quantity.description
         updateLabel()
     }
     
     @IBAction func AddButtonPressed(_ sender: UIBarButtonItem) {
         
-        if ValidationModel.sessionCheck
+        if !ValidationModel.sessionIsOff
         {
-            ValidationModel.sessionCheck = false
+            let cartItem = Cart(context: context)
             
-            let alertController = UIAlertController(title: "How do you want to Proceed?", message: "How do you want to Proceed?", preferredStyle: .actionSheet)
+            cartItem.username = ValidationModel.username
+            cartItem.frame = frame
+            cartItem.itemImageURL = sentLargeImage
+            cartItem.itemName = self.title
+            cartItem.itemNumber = itemNumber
+            cartItem.itemPrice = itemPrice
+            cartItem.itemTotal = itemTotal
+            cartItem.quantity = quantity
+            cartItem.size = size
+            cartItem.status = "open"
             
-            let signInAction = UIAlertAction(title: "Sign In", style: .default) { (action) in
-                self.performSegue(withIdentifier: "login", sender: self)
-            }
-            
-            let guestAction = UIAlertAction(title: "Check out as Guest", style: .default) { (action) in
-                self.performSegue(withIdentifier: "addToCart", sender: self)
-            }
-            
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            
-            alertController.addAction(signInAction)
-            alertController.addAction(guestAction)
-            alertController.addAction(cancel)
-            
-            self.present(alertController, animated: true, completion: nil)
+            ad.saveContext()
         }
-        else
-        {
-            self.performSegue(withIdentifier: "addToCart", sender: self)
-        }
+        self.performSegue(withIdentifier: "addToCart", sender: self)
     }
     
     override func viewDidLoad() {
@@ -195,9 +189,6 @@ class ItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
     }
     
-    // MARK : - Unwind segues
-    @IBAction func unwindToItem(_ segue:UIStoryboardSegue)
-    {}
     
     
     // MARK: - Navigation

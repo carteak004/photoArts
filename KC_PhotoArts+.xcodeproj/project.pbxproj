@@ -23,6 +23,8 @@
 		0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35D1FA6764000167B3A /* CVCell.swift */; };
 		0D8CA3601FA79E5500167B3A /* ItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */; };
 		0D9EF04C1FBAF82100FC515A /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9EF04B1FBAF82100FC515A /* PaymentViewController.swift */; };
+		0DA95ECE1FDC302100057153 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA95ECD1FDC302100057153 /* HistoryViewController.swift */; };
+		0DA95ED01FDC31E500057153 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DA95ECF1FDC31E500057153 /* HistoryTableViewCell.swift */; };
 		0DB8301F1FBB5C1E006E0880 /* CheckoutCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB8301E1FBB5C1E006E0880 /* CheckoutCart.swift */; };
 		0DCB32191FB13DCB00CDAB36 /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCB32181FB13DCB00CDAB36 /* CartTableViewCell.swift */; };
 		0DCEF95C1FD6250C0027EAAB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF95B1FD6250C0027EAAB /* LoginViewController.swift */; };
@@ -74,6 +76,8 @@
 		0D8CA35D1FA6764000167B3A /* CVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVCell.swift; sourceTree = "<group>"; };
 		0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemViewController.swift; sourceTree = "<group>"; };
 		0D9EF04B1FBAF82100FC515A /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		0DA95ECD1FDC302100057153 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		0DA95ECF1FDC31E500057153 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		0DB8301E1FBB5C1E006E0880 /* CheckoutCart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutCart.swift; sourceTree = "<group>"; };
 		0DCB32181FB13DCB00CDAB36 /* CartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		0DCEF95B1FD6250C0027EAAB /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -137,10 +141,8 @@
 				132318D21FB0FBC2002A385D /* View */,
 				132318D31FB0FBD5002A385D /* Controller */,
 				0D1961181F9F83AA00261FD5 /* Assets.xcassets */,
-				0D19610E1F9F83AA00261FD5 /* AppDelegate.swift */,
 				0D19611D1F9F83AB00261FD5 /* Info.plist */,
 				0D1FE9341FBD9CFE003A7913 /* html */,
-				0D1961151F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld */,
 			);
 			path = "KC_PhotoArts+";
 			sourceTree = "<group>";
@@ -170,6 +172,7 @@
 				132318CF1FB0FACD002A385D /* CartData.swift */,
 				0DB8301E1FBB5C1E006E0880 /* CheckoutCart.swift */,
 				0D3EDAC21FC8B2C400481098 /* ValidationModel.swift */,
+				0D1961151F9F83AA00261FD5 /* KC_PhotoArts_.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 		132318D31FB0FBD5002A385D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0D19610E1F9F83AA00261FD5 /* AppDelegate.swift */,
 				0DCEF95B1FD6250C0027EAAB /* LoginViewController.swift */,
 				134F057D1FD75AC1008242BE /* ForgotPasswordViewController.swift */,
 				0D1961101F9F83AA00261FD5 /* ViewController.swift */,
@@ -193,6 +197,8 @@
 				0D8CA35F1FA79E5500167B3A /* ItemViewController.swift */,
 				132318D41FB0FF1C002A385D /* CartViewController.swift */,
 				0DCB32181FB13DCB00CDAB36 /* CartTableViewCell.swift */,
+				0DA95ECD1FDC302100057153 /* HistoryViewController.swift */,
+				0DA95ECF1FDC31E500057153 /* HistoryTableViewCell.swift */,
 				0D60FDE71FB3C49900BE1435 /* CheckoutViewController.swift */,
 				138255601FB519D500A44F50 /* ShippingAddressViewController.swift */,
 				0D9EF04B1FBAF82100FC515A /* PaymentViewController.swift */,
@@ -344,11 +350,13 @@
 				0DCEF95C1FD6250C0027EAAB /* LoginViewController.swift in Sources */,
 				0D1961111F9F83AA00261FD5 /* ViewController.swift in Sources */,
 				0D8CA35C1FA5A2B100167B3A /* ArtData.swift in Sources */,
+				0DA95ECE1FDC302100057153 /* HistoryViewController.swift in Sources */,
 				0DB8301F1FBB5C1E006E0880 /* CheckoutCart.swift in Sources */,
 				0D8CA35E1FA6764000167B3A /* CVCell.swift in Sources */,
 				0DCB32191FB13DCB00CDAB36 /* CartTableViewCell.swift in Sources */,
 				0D19610F1F9F83AA00261FD5 /* AppDelegate.swift in Sources */,
 				134F057E1FD75AC1008242BE /* ForgotPasswordViewController.swift in Sources */,
+				0DA95ED01FDC31E500057153 /* HistoryTableViewCell.swift in Sources */,
 				132318D51FB0FF1C002A385D /* CartViewController.swift in Sources */,
 				0D1FE9371FBD9E10003A7913 /* AuthorViewController.swift in Sources */,
 				132318D01FB0FACE002A385D /* CartData.swift in Sources */,
