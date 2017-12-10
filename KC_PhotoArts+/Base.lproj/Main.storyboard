@@ -262,7 +262,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7eL-0C-FXH" userLabel="Sign In">
-                                <rect key="frame" x="0.0" y="456" width="375" height="211"/>
+                                <rect key="frame" x="0.0" y="228" width="375" height="211"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="axT-Mg-XFv">
@@ -313,7 +313,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1mb-IT-GWp" userLabel="Sign Up">
-                                <rect key="frame" x="0.0" y="81" width="375" height="392"/>
+                                <rect key="frame" x="0.0" y="137" width="375" height="392"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BLb-cU-X7m">
@@ -870,7 +870,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eAv-GX-usx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XcM-rt-jvP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3796" y="920.68965517241384"/>
+            <point key="canvasLocation" x="3796" y="913"/>
         </scene>
         <!--Shipping-->
         <scene sceneID="vgh-ac-DGk">
@@ -2092,10 +2092,19 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="frameLabel" destination="Q6C-Vx-Rva" id="K7P-wL-gvL"/>
                                             <outlet property="nameLabel" destination="0DH-pV-cXV" id="d2v-6Z-aFc"/>
+                                            <outlet property="priceLabel" destination="U4g-Ce-bJ4" id="JJ7-2F-0A1"/>
+                                            <outlet property="quantityLabel" destination="oPn-Rr-0Gt" id="hSR-14-Xhg"/>
+                                            <outlet property="sizeLabel" destination="Zy7-gr-fxU" id="xu5-7B-y3x"/>
+                                            <outlet property="thumbImageView" destination="ena-mj-2sp" id="tYI-Nc-S45"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="7h3-Y9-Bwh" id="tPR-iY-BxU"/>
+                                    <outlet property="delegate" destination="7h3-Y9-Bwh" id="N8x-Da-iOE"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2265,7 +2274,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QHh-wZ-h3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4553" y="193"/>
+            <point key="canvasLocation" x="4510" y="193"/>
         </scene>
     </scenes>
     <resources>
@@ -2274,7 +2283,7 @@
         <image name="home" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cjb-eB-HMe"/>
         <segue reference="e7c-0D-516"/>
+        <segue reference="xYd-4O-9pz"/>
     </inferredMetricsTieBreakers>
 </document>

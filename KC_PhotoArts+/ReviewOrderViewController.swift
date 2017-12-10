@@ -48,6 +48,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        print("IN did finish result meesage")
         switch (result.rawValue) {
         case MessageComposeResult.cancelled.rawValue:
             print("Message was cancelled")
@@ -57,12 +58,6 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
             self.dismiss(animated: true, completion: nil)
         case MessageComposeResult.sent.rawValue:
             print("Message was sent")
-            
-            if !ValidationModel.sessionIsOff
-            {
-                self.changeStatus(status: "complete")
-            }
-            
             self.dismiss(animated: true, completion: nil)
         default:
             break;
@@ -71,9 +66,31 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
+        
+        print("IN did finish result")
+        switch (result.rawValue) {
+        case MFMailComposeResult.cancelled.rawValue:
+            print("Message was cancelled")
+        case MFMailComposeResult.failed.rawValue:
+            print("Message failed")
+        case MFMailComposeResult.sent.rawValue:
+            print("Message was sent")
+            
+            if !ValidationModel.sessionIsOff
+            {
+                self.changeStatus(status: "complete")
+            }
+            
+            //self.dismiss(animated: true, completion: nil)
+        default:
+            break;
+        }
+
         CartData.sharedInstance.removeAll()
         CheckoutCart.chekOutData = CheckoutCart()
         CartData.totalPrice = 0
+        ValidationModel.sessionIsOff = true
+        ValidationModel.username = ""
         performSegue(withIdentifier: "mainVC", sender: self)
     }
     
@@ -152,7 +169,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
                     }
                 }
             }
-            print("Found \(results.count) users")
+            print("Found \(results.count) users in last")
         } catch  {
             print("Fetched Data Error!")
         }
@@ -184,7 +201,7 @@ class ReviewOrderViewController: UIViewController, UICollectionViewDelegate, UIC
         
         orderDate = "\(components.month!)/\(components.day!)/\(components.year!)"
         
-        var cartDetails:String = "Hey \(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName). Here is the summary for your Order placed on \(orderDate):\nItems Purchased:\n"
+        var cartDetails:String = "Hey \(CheckoutCart.chekOutData.firstName) \(CheckoutCart.chekOutData.lastName). Here is the summary for your Order placed on \(orderDate!):\nItems Purchased:\n"
         
         for item in CartData.sharedInstance
         {

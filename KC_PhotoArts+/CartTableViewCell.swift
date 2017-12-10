@@ -34,7 +34,7 @@ class CartTableViewCell: UITableViewCell {
         quantityLabel.text = "Quantity: \(CartData.sharedInstance[index].quantity!)"
         itemTotalLabel.text = "$\(CartData.sharedInstance[index].itemTotal!)"
         
-        delegate?.updateTotalforaCell()
+        delegate?.updateTotalforaCell(name:CartData.sharedInstance[index].itemName, quantity:CartData.sharedInstance[index].quantity)
     }
     
     override func awakeFromNib() {
@@ -51,5 +51,5 @@ class CartTableViewCell: UITableViewCell {
 }
 
 protocol cartCellDelegate: class {
-    func updateTotalforaCell()
+    func updateTotalforaCell(name:String, quantity:Int64)
 }

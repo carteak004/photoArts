@@ -5,6 +5,11 @@
 //  Created by ta on 12/5/17.
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
+/**************************************************************
+ This view has controls to update password for a given username.
+ **************************************************************/
+
+
 
 import UIKit
 import CoreData
@@ -29,10 +34,11 @@ class ForgotPasswordViewController: UIViewController {
         else{
             
             let alert = UIAlertController(title: "Action required", message: "The e-mail entered is not in our records", preferredStyle: .alert)
-            
+           /*
             let createAccount = UIAlertAction(title: "Create an Account", style: .default) { (action) in
                 self.performSegue(withIdentifier: "signIn", sender: self)
-            }
+                
+            }*/
             
             let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
                 self.emailTextField.text = ""
@@ -40,7 +46,7 @@ class ForgotPasswordViewController: UIViewController {
             }
             
             alert.addAction(cancel)
-            alert.addAction(createAccount)
+            //alert.addAction(createAccount)
             
             self.present(alert, animated: true, completion: nil)
         }
@@ -70,7 +76,6 @@ class ForgotPasswordViewController: UIViewController {
             }
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         hideLabels(flag: true)

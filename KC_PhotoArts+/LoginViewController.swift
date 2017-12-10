@@ -6,6 +6,10 @@
 //  Copyright © 2017 Northern Illinois University. All rights reserved.
 //
 
+/**************************************************************
+ This view has controls to either login or create an account.
+ **************************************************************/
+
 import UIKit
 import CoreData
 
@@ -52,7 +56,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         print(firstName, lastName, username, password)
         createUser(firstName: firstName, lastName: lastName, username: username, password: password)
         //performSegue(withIdentifier: "loginSuccess", sender: self)
-        performSegue(withIdentifier: "success", sender: self)
+        ValidationModel.sessionIsOff = false
+        if CartData.sharedInstance.count > 0
+        {
+            for item in CartData.sharedInstance
+            {
+                let cartItem = Cart(context: context)
+                
+                cartItem.username = username
+                cartItem.frame = item.frame
+                cartItem.itemImageURL = item.itemImageURL
+                cartItem.itemName = item.itemName
+                cartItem.itemNumber = item.itemNumber
+                cartItem.itemPrice = item.itemPrice
+                cartItem.itemTotal = item.itemTotal
+                cartItem.quantity = item.quantity
+                cartItem.size = item.size
+                cartItem.status = "open"
+                
+                ad.saveContext()
+            }
+        }
+        performSegue(withIdentifier: "toCheckout", sender: self)
     }
     
     @IBAction func createAccountButtonTapped(_ sender: UIButton) {
@@ -126,12 +151,18 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         signupPasswordLabel.isHidden = true
         repeatPasswordLabel.isHidden = true
         
+        
         validate()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        usernameTextField.text = ""
+        passwordTextField.text = ""
     }
     
     //MARK: - Delegate function to hide keyboard when tapped outside the field

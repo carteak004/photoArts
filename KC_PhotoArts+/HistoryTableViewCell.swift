@@ -11,6 +11,11 @@ import UIKit
 class HistoryTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var frameLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var quantityLabel: UIView!
+    @IBOutlet weak var thumbImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
