@@ -5,4 +5,4 @@ email as a confirmation.
 
 The app will read an image-list file and download each of the small image files named there. The app will display the thumbnail images using a collection view with two columns.
 
-https://user-images.githubusercontent.com/6321873/33819185-b3487ef0-de0e-11e7-8a54-3a1871d90abb.png
+![alt tag](https://user-images.githubusercontent.com/6321873/33819185-b3487ef0-de0e-11e7-8a54-3a1871d90abb.png)
