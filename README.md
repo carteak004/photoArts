@@ -14,3 +14,6 @@ If chose to Sign in, user will be taken to a Sign in page where user can enter u
 In the check out screen, user can select the type of shipping and the expected delivery rate and total price to be charged will be updated accordingly. Once done, user will be asked to enter shipping information and then billing information. All the fields are mandatory in every screen and will be validated once the user moves to next field. If there is any field left blank or not entered correctly, user will not be able to proceed to the next screen.
 
 Once everything is entered, user can review the order one last time. The review screen shows the thumbnails of all the items checked out in a horizantally scrollable collection view. The scren also shows the estimated date of delivery, shipping and billing information and the Total to be charged on the card. User can edit any information from this screen or can go back to cart. When the user clicks on Place order button, an alert is displayed to confirm if the order is to be placed. Once confirmed, an e-mail view will be presented which contains the details of the order in the body. User has to click send to get the confirmation on e-mail and then will be redirected to Home Screen. User will be automatically logged out if signed in. 
+
+
+_This project is done for a course requirement of NIU_
